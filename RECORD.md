@@ -301,7 +301,7 @@ R1–R8 不再新增评价标准，只允许在不改变含义的情况下补充
 - 输出文档：`outputs/视觉与动效规范.md`，共 347 行。
 - 网站运行与回归检查：不适用；P3 仅产出规范文档，尚未编写网站代码或进入 R0。
 - P3 产出提交：`f079d8d858e9c2c7247f7b80e352d936b66f10c9`，提交说明为 `docs(p3): add visual and motion specification`。
-- RECORD 更新提交：将在本次记录提交后补充。
+- RECORD 更新提交：`8b8237497066815807bf6221003896d26481ea9c`，提交说明为 `docs(record): complete P3 specification log`。
 - 阶段决策：待用户审核 P3 产出后决定；未经确认不进入 P4。
 
 ### P4——前端技术方案
