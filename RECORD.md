@@ -334,7 +334,7 @@ R1–R8 不再新增评价标准，只允许在不改变含义的情况下补充
 - 输出文档：`outputs/前端技术方案.md`，共624行。
 - 网站运行与回归检查：不适用；P4按要求只输出技术方案，未创建网站代码、依赖或构建配置。
 - P4产出提交：`c1ae5eeb0a253b3d1e38c8572ed057c7fa090862`，提交说明为 `docs(p4): add frontend technical plan`。
-- RECORD更新提交：将在本次记录提交后补充。
+- RECORD更新提交：`e8a27864a191f981b14535bf7b1bc7026e74d9ab`，提交说明为 `docs(record): complete P4 technical plan log`。
 - 阶段决策：待用户审核 P4 产出后决定；未经确认不进入 P5。
 
 ### P5——开发计划
