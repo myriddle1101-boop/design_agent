@@ -68,7 +68,7 @@
 
 | Stage | Purpose | Status | User confirmation to proceed |
 |---|---|---|---|
-| Setup | 建立记录与版本基础 | In progress | Not required |
+| Setup | 建立记录与版本基础 | Complete | Not required |
 | P1 | 内容与信息架构文档 | Not started | Required |
 | P2 | 素材清单 | Not started | Required |
 | P3 | 视觉与动效规范 | Not started | Required |
@@ -95,8 +95,8 @@
 - Inputs available：另一会话中的研究与执行计划。
 - Inputs missing：简历、作品集 PDF、图片/视频/链接、静态风格参考、动效参考、远程仓库地址。
 - Fabrication guard：计划中的 Prompt 是未来阶段模板，当前未标记为已发送。
-- Result：待完成后补充。
-- Git commit：待提交后补充。
+- Result：`RECORD.md` 已创建，本地 Git 仓库已初始化；未创建网站代码，未进入 P1。
+- Git commit：`464a0ccdbdc3e433014655e6e87b753056577ca0`（`docs: initialize design iteration record`）。
 
 ## 7. Preparation Stage
 
@@ -204,4 +204,3 @@
 - Code commit：
 - Documentation commit：
 - Git tag：
-
