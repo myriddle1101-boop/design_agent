@@ -262,7 +262,7 @@ R1–R8 不再新增评价标准，只允许在不改变含义的情况下补充
 - 完整性检查：素材目录存在；所有登记的本地文件已复制或导出；零字节文件为 0；源文件和导出图数量与清单一致。
 - 网站运行与回归检查：不适用；P2 仍属于输入准备阶段，尚无网站代码，也未进入 R0。
 - P2 产出提交：`19816a2229ec8c45ae544f777176f1ff73e1cf46`，提交说明为 `docs(p2): add organized material inventory`。
-- RECORD 更新提交：将在本次记录提交后补充。
+- RECORD 更新提交：`17a4e9bce3abd82e8e7c5e52493bc71d654f48db`，提交说明为 `docs(record): complete P2 material preparation log`。
 - 阶段决策：待用户审核 P2 产出后决定；未经确认不进入 P3。
 
 ### P3——视觉与动效规范
