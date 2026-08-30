@@ -33,7 +33,22 @@ const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.st
         </div>
       </div>
     </header>
-    <main id="main"><slot /></main>
+    <main id="main">
+      <div class="fantasy-world" aria-hidden="true">
+        <svg class="star-river" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <path class="star-river__glow" d="M76 -6 C48 8 84 22 55 38 S20 63 49 78 S74 93 55 108" />
+          <path class="star-river__core" d="M76 -6 C48 8 84 22 55 38 S20 63 49 78 S74 93 55 108" />
+        </svg>
+        <div class="sky-stars sky-stars--one">✦　·　✧　　✦</div>
+        <div class="sky-stars sky-stars--two">·　✦　　✧　·　✦</div>
+        <div class="world-hill world-hill--back"></div>
+        <div class="world-hill world-hill--mid"></div>
+        <div class="world-hill world-hill--front"></div>
+        <div class="world-plants world-plants--left">⌇ ✿ 〽 ♧</div>
+        <div class="world-plants world-plants--right">♧ 〽 ✿ ⌇</div>
+      </div>
+      <div class="page-content"><slot /></div>
+    </main>
     <footer class="site-footer">
       <div class="shell footer-inner">
         <p><strong>糜愉</strong> · AI商业化产品方向</p>
