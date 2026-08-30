@@ -43,6 +43,116 @@ const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.st
       </div>
     </footer>
     <script>
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const motionEnabled = () => !reduceMotion.matches;
+      const root = document.documentElement;
+      if (motionEnabled()) root.classList.add('motion-ready');
+
+      const main = document.querySelector('main');
+      const content = document.querySelector('.page-content');
+      if (main && content && motionEnabled()) {
+        const backdrop = document.createElement('div');
+        backdrop.className = 'motion-backdrop';
+        backdrop.setAttribute('aria-hidden', 'true');
+        const starPositions = [[7, 7], [19, 18], [82, 10], [93, 23], [12, 38], [74, 34], [88, 55], [22, 69], [58, 76], [8, 89], [91, 87], [44, 94]];
+        starPositions.forEach(([x, y], index) => {
+          const star = document.createElement('span');
+          star.className = 'motion-star';
+          star.style.setProperty('--star-x', `${x}%`);
+          star.style.setProperty('--star-y', `${y}%`);
+          star.style.setProperty('--star-delay', `${index * 45}ms`);
+          backdrop.append(star);
+        });
+        const svgNamespace = 'http://www.w3.org/2000/svg';
+        const pathSvg = document.createElementNS(svgNamespace, 'svg');
+        pathSvg.setAttribute('class', 'motion-path');
+        pathSvg.setAttribute('viewBox', '0 0 100 1000');
+        pathSvg.setAttribute('preserveAspectRatio', 'none');
+        const path = document.createElementNS(svgNamespace, 'path');
+        path.setAttribute('d', 'M64 0 C88 65 26 110 53 188 S87 300 56 382 S12 470 42 556 S84 660 51 742 S17 856 45 1000');
+        pathSvg.append(path);
+        backdrop.append(pathSvg);
+        main.insertBefore(backdrop, content);
+
+        const scenes = [...document.querySelectorAll('.hero, .page-header, .section')];
+        scenes.forEach((section) => section.setAttribute('data-motion', 'section'));
+        const motionItems = [...document.querySelectorAll('.hero-grid > div, .hero-photo, .page-header .shell, .section-head, .project-card, .evidence-card, .timeline > article, .timeline > details, .detail-section, .contact-grid > div, .about-grid > div, .interest-card, .gallery figure, .footer-inner')];
+        motionItems.forEach((item) => item.setAttribute('data-motion-item', ''));
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-motion-visible');
+            observer.unobserve(entry.target);
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -10% 0px' });
+        motionItems.forEach((item) => observer.observe(item));
+
+        const pathLength = path.getTotalLength();
+        path.style.strokeDasharray = String(pathLength);
+        path.style.strokeDashoffset = String(pathLength);
+        let ticking = false;
+        const updateScenery = () => {
+          ticking = false;
+          const scrollable = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+          const progress = Math.min(1, Math.max(0, window.scrollY / scrollable));
+          path.style.strokeDashoffset = String(pathLength * (1 - progress));
+          scenes.forEach((scene) => {
+            const rect = scene.getBoundingClientRect();
+            const relative = (rect.top + rect.height / 2 - window.innerHeight / 2) / window.innerHeight;
+            scene.style.setProperty('--scene-shift', `${Math.max(-24, Math.min(24, relative * 13))}px`);
+          });
+        };
+        const requestSceneryUpdate = () => {
+          if (ticking) return;
+          ticking = true;
+          window.requestAnimationFrame(updateScenery);
+        };
+        window.addEventListener('scroll', requestSceneryUpdate, { passive: true });
+        window.addEventListener('resize', requestSceneryUpdate, { passive: true });
+        requestSceneryUpdate();
+
+        let pointerTicking = false;
+        let pointerX = 0;
+        let pointerY = 0;
+        const stars = [...backdrop.querySelectorAll('.motion-star')];
+        main.addEventListener('pointermove', (event) => {
+          if (event.pointerType === 'touch') return;
+          pointerX = event.clientX;
+          pointerY = event.clientY;
+          if (pointerTicking) return;
+          pointerTicking = true;
+          window.requestAnimationFrame(() => {
+            pointerTicking = false;
+            stars.forEach((star) => {
+              const rect = star.getBoundingClientRect();
+              const dx = pointerX - (rect.left + rect.width / 2);
+              const dy = pointerY - (rect.top + rect.height / 2);
+              const distance = Math.hypot(dx, dy);
+              const strength = Math.max(0, 1 - distance / 120);
+              star.style.setProperty('--star-move-x', `${Math.max(-5, Math.min(5, dx * strength * .03))}px`);
+              star.style.setProperty('--star-move-y', `${Math.max(-5, Math.min(5, dy * strength * .03))}px`);
+              star.style.setProperty('--star-brightness', String(1 + strength * .65));
+            });
+          });
+        });
+        main.addEventListener('pointerleave', () => stars.forEach((star) => {
+          star.style.setProperty('--star-move-x', '0px');
+          star.style.setProperty('--star-move-y', '0px');
+          star.style.setProperty('--star-brightness', '1');
+        }));
+        main.addEventListener('click', (event) => {
+          if (event.target.closest('a, button, summary, input, select, textarea, details')) return;
+          const ripple = document.createElement('span');
+          const rect = main.getBoundingClientRect();
+          ripple.className = 'motion-ripple';
+          ripple.style.left = `${event.clientX - rect.left}px`;
+          ripple.style.top = `${event.clientY - rect.top}px`;
+          backdrop.append(ripple);
+          ripple.addEventListener('animationend', () => ripple.remove(), { once: true });
+        });
+      }
+
       const toggle = document.querySelector('.menu-toggle');
       const nav = document.querySelector('.site-nav');
       toggle?.addEventListener('click', () => {
@@ -57,20 +167,30 @@ const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.st
       });
       document.querySelectorAll('[data-copy-email]').forEach((button) => button.addEventListener('click', async () => {
         const status = document.querySelector('[data-copy-status]');
-        try { await navigator.clipboard.writeText(button.getAttribute('data-copy-email') || ''); if (status) status.textContent = '邮箱已复制。'; }
-        catch { if (status) status.textContent = '复制未成功，可手动选择邮箱。'; }
+        button.classList.remove('is-copy-success', 'is-copy-failed');
+        try { await navigator.clipboard.writeText(button.getAttribute('data-copy-email') || ''); if (status) status.textContent = '邮箱已复制。'; button.classList.add('is-copy-success'); }
+        catch { if (status) status.textContent = '复制未成功，可手动选择邮箱。'; button.classList.add('is-copy-failed'); }
         window.setTimeout(() => { if (status) status.textContent = ''; }, 2400);
+        window.setTimeout(() => button.classList.remove('is-copy-success', 'is-copy-failed'), 2400);
       }));
       document.querySelectorAll('[data-filter-group]').forEach((group) => {
         const buttons = group.querySelectorAll('[data-filter]');
         const cards = document.querySelectorAll(`[data-filter-card="${group.getAttribute('data-filter-group')}"]`);
-        const apply = (filter) => {
+        const apply = (filter, shouldAnimate = false) => {
+          const before = shouldAnimate && motionEnabled() ? new Map([...cards].filter((card) => !card.hidden).map((card) => [card, card.getBoundingClientRect()])) : null;
           cards.forEach((card) => { const match = filter === 'all' || card.getAttribute('data-categories')?.split(' ').includes(filter); card.toggleAttribute('hidden', !match); });
           buttons.forEach((button) => button.setAttribute('aria-pressed', String(button.getAttribute('data-filter') === filter)));
           const url = new URL(window.location.href); filter === 'all' ? url.searchParams.delete('filter') : url.searchParams.set('filter', filter); window.history.replaceState({}, '', url);
+          if (!before) return;
+          [...cards].filter((card) => !card.hidden).forEach((card) => {
+            const previous = before.get(card);
+            const current = card.getBoundingClientRect();
+            if (previous) card.animate([{ transform: `translate(${previous.left - current.left}px, ${previous.top - current.top}px)` }, { transform: 'translate(0, 0)' }], { duration: 360, easing: 'cubic-bezier(.22,1,.36,1)' });
+            else card.animate([{ opacity: 0, transform: 'translateY(12px) scale(.985)' }, { opacity: 1, transform: 'translateY(0) scale(1)' }], { duration: 260, easing: 'cubic-bezier(.22,1,.36,1)' });
+          });
         };
         const initial = new URLSearchParams(window.location.search).get('filter'); if (initial && [...buttons].some((b) => b.getAttribute('data-filter') === initial)) apply(initial);
-        buttons.forEach((button) => button.addEventListener('click', () => apply(button.getAttribute('data-filter') || 'all')));
+        buttons.forEach((button) => button.addEventListener('click', () => apply(button.getAttribute('data-filter') || 'all', true)));
       });
     </script>
   </body>
