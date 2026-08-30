@@ -609,6 +609,21 @@ R1–R9不再新增正式评价标准，只允许在不改变含义的情况下�
 
 - Prompt字数：以本节保存的用户原文为准，未改写。
 
+#### 2.1 用户第一次验收反馈与继续修复记录
+
+- 状态：用户未通过R2验收，本轮重新打开并继续修复；不得进入R3。
+- 当前问题一：背景图案数量和自然细节不足，仍呈现简单矢量图感，缺少参考图中的云、远山、树林、河流、草地、花草和绘本肌理。
+- 当前问题二：内容区块仍有独立的浅灰、浅蓝或绿色背景底板，页面依然按矩形色块分段，没有只依靠天空、山水层次和颜色渐变实现自然分区。
+- 截图证据：用户在本地Home页面分别批注Hero和Evidence区块，并附带三张自然景观参考图；批注截图显示Hero下缘为单一折线山形，Evidence区块仍有完整浅灰色矩形底板。继续修复前本地证据将保存为`evidence/R2/continue-before-home-viewport-1440x900.png`。
+- 对应评价标准：主标准仍为`C1—背景世界观、连续性与图像语言`；相关标准为C2共享背景一致性、`C3—可识别视觉母题`。
+- 修改假设：用原创绘本质感的连续自然景观图替代简单CSS山形，并把内容区块底板改为透明表面，仅保留内容卡片本身，可在不改变信息结构和组件规则的情况下同时解决“素材过简”和“矩形分块”两项问题。
+- 必须保持不变：六个Tab内容、区块顺序、卡片、导航、按钮、标签、排版和全部真实信息；本次仍不实现星星点击或内容展开。
+- 回归风险：复杂背景可能降低文字对比度或产生视觉噪声；大图可能影响加载；背景裁切可能在不同页面长度下形成重复接缝。
+- Prompt原文（用户浏览器批注，未改写）：
+  > 我觉得背景的图案可以再多一点的，现在还是偏简单矢量图，我想要的风格参考图是图这样
+  >
+  > 目前的背景图还是分块了，我想要的是不分块的，但是可以通过一点颜色的渐变或者山水天空的区分自然分块
+
 #### 3. Agent产出
 
 - 状态：实现、客观检查与证据保存已完成，等待用户评分和验收。
@@ -620,10 +635,37 @@ R1–R9不再新增正式评价标准，只允许在不改变含义的情况下�
 - 已知问题：星星仍为纯装饰，不可点击或展开内容；未实现复杂视差；本轮未做移动端专项评价；C1、C2、C3是否提高仍需用户依据截图和实际页面评分。
 - 结果提交或标签：代码与证据提交`9456692eab71376a2f1a95adb20a8591e51d1cd6`；Git标签待用户验收后决定。
 
+#### 3.1 用户反馈后的继续修复产出
+
+- 状态：两项用户反馈均已实现修复，等待用户重新验收；R2仍未结束。
+- 新增素材：`site/public/media/fantasy-landscape-r2.webp`，1672×941，约300 KB。使用内置图像生成能力制作原创背景，再由Sharp转为WebP；未使用的2.7 MB工作区PNG已移除，Codex生成目录仍保留原始文件。
+- 继续修复摘要：移除共享背景中的简单SVG路径、折线丘陵和字符植物；使用原创绘本背景建立星空、云层、远山、树林、河流、草地和花丛的连续场景；取消Hero绿色折线色块以及`.section`、`.section--sky`、`.section--green`的区块底色，使页面分区只由背景景深、自然轮廓与色彩渐变形成；保留卡片自身的纸张表面以保证信息可读。
+- 编辑局部性：只修改共享背景标记、背景相关CSS和新增背景素材；没有修改六个Tab的内容、区块顺序、导航、按钮、标签、卡片组件、内容数据或真实信息。
+- 图像生成最终Prompt：
+  > Use case: stylized-concept
+  >
+  > Asset type: wide desktop website background illustration for a personal portfolio
+  >
+  > Primary request: Create one original continuous natural-fantasy landscape that replaces a simple flat vector background. Use the attached landscape references only for the desired density of natural details, layered scenery, and hand-painted storybook texture; do not copy any specific composition.
+  >
+  > Scene/backdrop: a continuous world transitioning naturally from a restrained deep-blue starry sky at the top into soft white clouds, distant blue-green mountains, layered green hills, forest clusters, a luminous white river/path winding through the whole scene, and a foreground meadow with grasses and small flowers.
+  >
+  > Style/medium: richly detailed hand-painted editorial illustration, tactile gouache and colored-pencil texture, softly irregular edges, playful but professional; compatible with retro-computer windows overlaid on top. More organic and painterly than geometric vector art.
+  >
+  > Composition/framing: wide 16:9 landscape, designed to cover a desktop viewport; deep-blue sky no more than one third of the image; the white river/path should be prominent and guide the eye diagonally through the full composition; distribute natural motifs across the frame while leaving calmer midtone areas for readable website content overlays.
+  >
+  > Color palette: deep navy, soft sky blue, warm off-white, multiple fresh greens, small yellow and blue flower accents.
+  >
+  > Constraints: no text, no letters, no logos, no watermark, no UI panels, no people, no buildings, no photorealism; avoid hard rectangular divisions; all zones must blend through natural landforms, atmosphere, and color gradients; avoid flat polygon-only mountains and overly simple vector shapes.
+- 继续修复后的检查：`npm run build`成功并生成17个页面；在1440×900逐一点击六个Tab，当前状态全部正确；六页均加载新背景、损坏图片为0、横向溢出为0、控制台错误为0；减少动态规则覆盖新前景装饰。键盘焦点自动化尝试未得到有效焦点变化，因此仍记为未重新测试，不虚构通过结果。
+- 已知限制：背景采用固定连续场景，页面滚动时不会生成新的纵向地貌；星星仍不可点击；移动端未纳入本轮评价。
+
 #### 4. 视觉证据
 
 - 修改前截图：`evidence/R2/before-home-viewport-1440x900.png`。
 - 修改后截图：`evidence/R2/after-home-viewport-1440x900.png`；其余五个Tab为`after-{tab}-viewport-1440x900.png`。
+- 用户反馈后继续修复前截图：`evidence/R2/continue-before-home-viewport-1440x900.png`。
+- 用户反馈后修订截图：`evidence/R2/revised-home-viewport-1440x900.png`；其余五个Tab为`revised-{tab}-viewport-1440x900.png`。
 - 交互录屏：未录制；本轮以六个Tab同视口截图和浏览器导航检查为证据。
 - 固定视口：1440×900桌面端。
 
@@ -636,14 +678,14 @@ R1–R9不再新增正式评价标准，只允许在不改变含义的情况下�
 | A3 身份清晰度 | 1–5分 | 沿用R1 | 待用户评分 | Home原有身份内容和层级未修改。 |
 | B1 Tab定位层 | 通过/失败/未测试（硬门槛） | 通过 | 通过 | 六个导航链接均存在；逐页检查`aria-current="page"`分别对应当前Tab。 |
 | B2 Tab行为层 | 通过/失败/未测试（硬门槛） | 通过 | 通过 | 在浏览器中依次点击六个导航链接，均到达正确视图，无旧内容残留。 |
-| B3 运行可靠性 | 通过/失败/未测试（硬门槛） | 通过 | 通过 | 构建成功；17个静态页面生成；六页损坏图片为0，控制台错误为0。 |
+| B3 运行可靠性 | 通过/失败/未测试（硬门槛） | 通过 | 通过 | 继续修复后重新构建成功并生成17个页面；六页新背景加载成功、损坏图片为0，控制台错误为0。 |
 | B4 响应式完整性 | 通过/失败/未测试（硬门槛） | 未纳入 | 未测试 | 本轮按用户研究范围只评价1440×900电脑端，不纳入本轮改善判定。 |
 | B5 操作反馈质量 | 1–5分 | 5/5 | 待用户评分 | 导航、按钮和链接反馈规则未修改；背景层设置`pointer-events:none`，未遮挡操作。 |
-| C1 风格对齐 | 1–5分 | 3/5 | 待用户评分 | `C1—背景世界观与连续性`：由大面积深蓝色块、白色椭圆和绿色斜块，变为深蓝天空、星点、白色星光路径、绿色丘陵和植物组成的连续自然幻想背景；是否达到目标由用户评分。 |
-| C2 视觉一致性 | 1–5分 | 5/5 | 待用户评分 | 六个Tab使用同一个`fantasy-world`共享结构和Token，没有创建独立页面背景；原有共享组件规则保持不变。 |
-| C3 个性辨识度 | 1–5分 | 3/5 | 待用户评分 | `C3—视觉母题`：星光路径和分层自然场景已从局部几何装饰转为全站共享母题；尚未与真实项目或经历建立可点击关联。 |
-| C4 信息层级 | 1–5分 | 3/5 | 待用户评分 | 未改排版层级；半透明区块维持正文对比度，装饰未遮挡信息。 |
-| C5 动效质量 | 1–5分 | 不适用 | 待用户评分 | 新增一次性前后景弹出，目的为建立自然层次；减少动态偏好下取消动画。未实现复杂动效。 |
+| C1 风格对齐 | 1–5分 | 3/5 | 待用户评分 | `C1—背景世界观、连续性与图像语言`：第一次产出的简单矢量星线和折线丘陵未通过用户验收；继续修复后改为具有绘本肌理的星空、云、远山、森林、白色河流、草地与花丛，且内容区不再使用矩形色块底板。是否达到目标仍由用户重新评分。 |
+| C2 视觉一致性 | 1–5分 | 5/5 | 待用户评分 | 六个Tab使用同一张优化后的WebP场景和同一个`fantasy-world`共享结构；没有创建独立页面背景，原有共享组件规则保持不变。 |
+| C3 个性辨识度 | 1–5分 | 3/5 | 待用户评分 | `C3—视觉母题`：白色河流/星光路径与自然幻想场景已形成比简单几何图案更明确的全站母题；尚未与真实项目或经历建立可点击关联。 |
+| C4 信息层级 | 1–5分 | 3/5 | 待用户评分 | 未改排版层级；取消区块底板后通过文字阴影和原有纸张卡片维持可读性，需用户结合实际页面判断背景细节是否干扰扫读。 |
+| C5 动效质量 | 1–5分 | 不适用 | 待用户评分 | 只保留一次性前景弹出，目的为增强景深；减少动态偏好下取消动画。未实现复杂动效。 |
 | D1 指令遵循与修改落实 | 1–5分 | 不适用 | 待用户评分 | 实现范围限定在共享背景和必要对比度调整，Prompt原文已在修改前记录。 |
 | D2 编辑局部性 | 1–5分 | 不适用 | 待用户评分 | 仅修改共享布局的装饰背景层和全局背景样式，未修改内容数据、页面结构或组件文件。 |
 | D3 回归控制 | 1–5分 | 不适用 | 待用户评分 | B1–B3继续通过；六Tab素材、当前状态、桌面溢出和控制台已检查。 |
@@ -656,21 +698,21 @@ R1–R9不再新增正式评价标准，只允许在不改变含义的情况下�
 | 已有Tab全部可用 | 通过 | 依次点击六个Tab并保存六张1440×900截图；当前Tab状态全部正确。 |
 | 内容保持准确 | 通过 | `site/src/data/site.ts`及所有页面文件无修改；浏览器确认六页原有主内容存在。 |
 | 素材加载 | 通过 | 六个Tab浏览器检查损坏图片数量均为0。 |
-| 桌面端布局 | 通过 | 六页1440×900均无横向溢出，截图见`evidence/R2/`。 |
+| 桌面端布局 | 通过 | 继续修复后六页1440×900均无横向溢出，截图见`evidence/R2/revised-*.png`。 |
 | 平板端布局 | 未测试 | 不属于本轮评价范围。 |
 | 移动端布局 | 未测试 | 不属于本轮评价范围。 |
 | 键盘交互 | 未重新测试 | 本轮未修改导航或控件行为；不得据此宣称键盘回归已验证。 |
 | 控制台错误 | 通过 | 六Tab导航检查后读取控制台，错误为0。 |
-| 减少动态方案 | 通过 | 检查到`prefers-reduced-motion`规则同时禁用植物和Home前景动画。 |
+| 减少动态方案 | 通过 | 检查到`prefers-reduced-motion`规则禁用新背景前景装饰动画。 |
 
 #### 7. 决策
 
 - 结果：等待用户评分，暂不判定为改善、部分改善、无明显改善或退化。
-- 决定：R2实现和客观回归已完成；未经用户确认不进入R3。
+- 决定：第一次R2产出未通过用户验收，已在同一轮继续修复；当前修订版完成客观回归，未经用户重新确认不进入R3。
 - 原因：C1、C2、C3的设计质量必须由用户结合前后截图和实际页面评分；Agent不代替用户评价。
 - 剩余限制：星星点击与内容展开、复杂视差、真实内容关联和移动端专项优化均未进入本轮。
 - 下一轮候选问题：仅在用户确认R2后，根据本版本真实评分确定。
-- 代码提交：`9456692eab71376a2f1a95adb20a8591e51d1cd6`。
+- 代码提交：第一次产出为`9456692eab71376a2f1a95adb20a8591e51d1cd6`；用户反馈后的修订提交待提交后填写。
 - 文档提交：`105b92049d4da5691b9daaa64026d8822df47194`（R2完整证据、评价表与回归记录）。
 - Git标签：待用户验收后决定。
 
