@@ -9,9 +9,11 @@ const href = project.kind === 'ai' ? `/ai-projects/${project.slug}/` : `/portfol
     <div class="stack-frame">
       {project.cover ? <img src={project.cover.src} alt={project.cover.alt} loading="lazy" /> : <div class="media-placeholder" aria-label={project.placeholder ?? '素材待补'}><span>素材待补</span><small>{project.placeholder ?? '项目主视觉待补'}</small></div>}
     </div>
-    <div class="project-card__meta"><span>{project.kind === 'ai' ? 'AI PROJECT' : 'PORTFOLIO'}</span><span>{project.period ?? project.categories[0]}</span></div>
-    <h3>{project.title}</h3>
-    <p>{project.summary}</p>
-    <span class="card-cta">查看详情 <span aria-hidden="true">↗</span></span>
+    <div class="project-card__body">
+      <div class="project-card__meta"><span>{project.kind === 'ai' ? 'AI PROJECT' : 'PORTFOLIO'}</span><span>{project.period ?? project.categories[0]}</span></div>
+      <h3>{project.title}</h3>
+      <p>{project.summary}</p>
+      <span class="card-cta">查看详情 <span aria-hidden="true">↗</span></span>
+    </div>
   </a>
 </article>
