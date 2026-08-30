@@ -47,15 +47,6 @@ img { display: block; max-width: 100%; }
 /* One continuous natural-fantasy world behind every tab */
 main { position: relative; isolation: isolate; overflow: hidden; background: #8fc474; }
 .page-content { position: relative; z-index: 2; }
-.fantasy-world { position: fixed; z-index: 0; inset: 0; overflow: hidden; background: linear-gradient(180deg, rgba(12, 42, 90, .08), rgba(255, 255, 255, .04) 42%, rgba(66, 132, 73, .08)), url('/media/fantasy-landscape-r2.webp') center / cover no-repeat; pointer-events: none; }
-.fantasy-world::before { position: absolute; inset: 0; background: radial-gradient(circle at 12% 7%, rgba(255, 255, 255, .92) 0 1px, transparent 2px), radial-gradient(circle at 86% 13%, rgba(255, 223, 53, .9) 0 2px, transparent 3px), radial-gradient(circle at 29% 28%, rgba(255, 255, 255, .82) 0 1.5px, transparent 2.5px), radial-gradient(circle at 72% 43%, rgba(255, 255, 255, .76) 0 1px, transparent 2px); background-size: 210px 240px, 320px 360px, 270px 310px, 190px 280px; content: ""; opacity: .46; }
-.fantasy-world::after { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8, 25, 52, .08), transparent 35% 68%, rgba(8, 25, 52, .06)); content: ""; }
-.sky-stars { position: absolute; color: var(--star); font-family: var(--pixel); letter-spacing: .7rem; text-shadow: 0 0 10px rgba(255, 255, 255, .7); opacity: .9; }
-.sky-stars--one { top: 8%; left: 6%; font-size: clamp(1rem, 2vw, 2rem); transform: rotate(-8deg); }
-.sky-stars--two { top: 46%; right: 4%; font-size: clamp(.9rem, 1.7vw, 1.6rem); transform: rotate(9deg); }
-.landscape-foreground { position: absolute; bottom: -2rem; width: min(28vw, 27rem); height: min(23vw, 20rem); background: radial-gradient(ellipse at 30% 100%, rgba(30, 105, 55, .58) 0 5%, transparent 6%), radial-gradient(ellipse at 55% 100%, rgba(62, 147, 68, .5) 0 4%, transparent 5%), radial-gradient(ellipse at 76% 100%, rgba(35, 113, 58, .54) 0 5%, transparent 6%); background-size: 32px 100%, 45px 100%, 38px 100%; transform-origin: 50% 100%; animation: scenery-pop 700ms cubic-bezier(.2, .85, .3, 1.2) both; }
-.landscape-foreground--left { left: -2%; }
-.landscape-foreground--right { right: -2%; transform: scaleX(-1); animation-delay: 100ms; }
 @keyframes scenery-pop { from { opacity: 0; transform: translateY(34px) scaleY(.7); } to { opacity: 1; transform: none; } }
 
 /* Shared retro browser chrome */
@@ -84,7 +75,7 @@ main { position: relative; isolation: isolate; overflow: hidden; background: #8f
 .footer-inner a { color: var(--navy); font-weight: 800; }
 
 /* Collage hero */
-.hero { position: relative; overflow: visible; min-height: 650px; border-bottom: 0; background: transparent; color: var(--white); padding: 6rem 0 5rem; }
+.hero { position: relative; z-index: 5; overflow: hidden; min-height: 690px; margin-bottom: -4rem; border-bottom: 0; background: #204b82 url('/media/scenes/scene-sky.svg') center / cover no-repeat; clip-path: polygon(0 0, 100% 0, 100% 94%, 91% 91%, 80% 96%, 68% 92%, 56% 97%, 43% 93%, 29% 97%, 14% 92%, 0 96%); color: var(--white); padding: 6rem 0 8rem; }
 .hero::before { position: absolute; inset: 8% auto auto 3%; width: 18rem; height: 4rem; border: 2px solid var(--ink); background: var(--sky); box-shadow: var(--shadow); content: "WELCOME TO MI_YU.DOS"; padding: .55rem .8rem; color: var(--navy); font: 1.35rem/1 var(--screen); transform: rotate(-2deg); }
 .hero::after { display: none; }
 .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 4rem; }
@@ -113,10 +104,11 @@ h3 { margin: .4rem 0; font-size: 1.45rem; line-height: 1.2; }
 .button:focus-visible, .site-nav a:focus-visible, .menu-toggle:focus-visible, a:focus-visible, button:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
 
 /* Shared narrative sections */
-.section { position: relative; padding: clamp(4rem, 8vw, 7rem) 0; border-bottom: 0; background: transparent; }
+.section { position: relative; z-index: 4; margin-bottom: -4.5rem; padding: clamp(7rem, 10vw, 9rem) 0 clamp(8rem, 11vw, 10rem); border-bottom: 0; background: #89b995 url('/media/scenes/scene-mountain.svg') center / cover no-repeat; clip-path: polygon(0 4%, 8% 1%, 19% 5%, 31% 2%, 43% 6%, 57% 2%, 70% 5%, 83% 1%, 100% 4%, 100% 96%, 91% 92%, 78% 97%, 65% 93%, 51% 98%, 38% 94%, 24% 97%, 11% 93%, 0 97%); }
 .section::after { display: none; }
 .section:nth-of-type(even)::before { position: absolute; top: 1.3rem; left: max(24px, calc((100% - var(--max)) / 2)); width: 84px; height: 18px; background: var(--star); clip-path: polygon(3% 10%, 100% 0, 95% 90%, 0 100%); content: ""; opacity: .9; }
-.section--sky, .section--green { background: transparent; }
+.section--sky, .section--green { background: #72b25d url('/media/scenes/scene-meadow.svg') center / cover no-repeat; }
+.section:nth-of-type(4n) { background: #4f85ac url('/media/scenes/scene-sky.svg') center / cover no-repeat; }
 .section-head { display: flex; align-items: end; justify-content: space-between; gap: 2rem; margin-bottom: 2rem; }
 .section-head h2, .section-head p { text-shadow: 0 1px 0 rgba(255, 255, 255, .82), 0 0 14px rgba(255, 255, 255, .68); }
 .section-head p { max-width: 38rem; margin: 0; }
@@ -143,6 +135,9 @@ h3 { margin: .4rem 0; font-size: 1.45rem; line-height: 1.2; }
 .project-card__meta { display: flex; justify-content: space-between; gap: .5rem; margin-top: 1.3rem; color: var(--green-dark); }
 .project-card p { margin: .6rem 0 1rem; color: #43515a; font-size: .93rem; }
 .card-cta { font-family: var(--pixel); font-weight: 800; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.section--sky .project-card__meta, .section--green .project-card__meta { color: #123a35; }
+.section--sky .project-card__meta, .section--sky .project-card h3, .section--sky .project-card p, .section--sky .card-cta,
+.section--green .project-card__meta, .section--green .project-card h3, .section--green .project-card p, .section--green .card-cta { text-shadow: 0 1px 0 rgba(255, 255, 255, .95), 0 0 9px rgba(255, 255, 255, .9); }
 .media-placeholder { display: flex; width: 100%; height: 100%; min-height: 190px; align-items: center; justify-content: center; flex-direction: column; gap: .4rem; border: 2px dashed var(--green-dark); background: repeating-linear-gradient(-45deg, var(--sky-soft) 0 12px, var(--paper) 12px 24px); padding: 1rem; text-align: center; color: var(--ink); }
 .media-placeholder span { font-family: var(--pixel); font-weight: 800; }
 .media-placeholder small { font-family: var(--screen); font-size: 1.1rem; }
@@ -152,7 +147,7 @@ h3 { margin: .4rem 0; font-size: 1.45rem; line-height: 1.2; }
 .filter-bar button[aria-pressed="true"] { background: var(--lime); transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
 
 /* Shared page headers as application windows */
-.page-header { position: relative; overflow: hidden; border-bottom: 0; background: linear-gradient(100deg, rgba(11, 33, 72, .68), rgba(23, 59, 114, .22), transparent); padding: 5.5rem 0 4rem; color: var(--white); }
+.page-header { position: relative; z-index: 5; overflow: hidden; margin-bottom: -4rem; border-bottom: 0; background: #204b82 url('/media/scenes/scene-sky.svg') center / cover no-repeat; clip-path: polygon(0 0, 100% 0, 100% 92%, 88% 96%, 76% 91%, 62% 97%, 48% 92%, 34% 97%, 19% 91%, 0 96%); padding: 5.5rem 0 7rem; color: var(--white); }
 .page-header::before { position: absolute; inset: 1.6rem max(24px, calc((100% - var(--max)) / 2)) auto; height: 1.8rem; border: 2px solid var(--ink); background: var(--lime); content: "CURRENT_TAB.HTML                       _  □  ×"; padding: 0 .65rem; color: var(--ink); font: 1rem/1.8rem var(--screen); }
 .page-header::after { position: absolute; right: 6%; bottom: -3.5rem; width: 18rem; height: 10rem; border: 22px solid rgba(255, 255, 255, .7); border-radius: 50%; content: ""; transform: rotate(-15deg); }
 .page-header .shell { position: relative; z-index: 1; }
@@ -237,6 +232,5 @@ h3 { margin: .4rem 0; font-size: 1.45rem; line-height: 1.2; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: 1ms !important; }
   .hero-grid > div, .hero-photo, .about-photo, .evidence-card, .tag, .tool-list span { transform: none !important; }
-  .landscape-foreground { animation: none !important; }
   .hero::after { animation: none !important; }
 }

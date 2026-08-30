@@ -34,12 +34,6 @@ const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.st
       </div>
     </header>
     <main id="main">
-      <div class="fantasy-world" aria-hidden="true">
-        <div class="sky-stars sky-stars--one">✦　·　✧　　✦</div>
-        <div class="sky-stars sky-stars--two">·　✦　　✧　·　✦</div>
-        <div class="landscape-foreground landscape-foreground--left"></div>
-        <div class="landscape-foreground landscape-foreground--right"></div>
-      </div>
       <div class="page-content"><slot /></div>
     </main>
     <footer class="site-footer">
