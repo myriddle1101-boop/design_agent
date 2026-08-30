@@ -26,7 +26,11 @@ const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.st
           <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">菜单</button>
         </div>
         <div class="chrome-toolbar">
-          <span class="browser-actions" aria-hidden="true">←　→　↻</span>
+          <div class="browser-actions" aria-label="页面浏览操作">
+            <button type="button" data-browser-action="back" aria-label="后退" title="后退">←</button>
+            <button type="button" data-browser-action="forward" aria-label="前进" title="前进">→</button>
+            <button type="button" data-browser-action="reload" aria-label="刷新" title="刷新">↻</button>
+          </div>
           <nav id="site-nav" class="site-nav" aria-label="主导航">
             {site.nav.map((item) => <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>)}
           </nav>
@@ -76,6 +80,7 @@ const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.st
 
         const scenes = [...document.querySelectorAll('.hero, .page-header, .section')];
         const scenePaths = [];
+        const scenePathMarkers = [];
         const natureSvg = {
           cloud: '<svg viewBox="0 0 120 62" aria-hidden="true"><path d="M16 49h88c9 0 13-6 10-13-3-7-10-9-18-7C92 16 80 10 67 16 57 1 34 8 31 25 12 20 3 42 16 49Z"/><path class="motif-detail" d="M30 38c19 5 39 4 61-2"/></svg>',
           bird: '<svg viewBox="0 0 100 58" aria-hidden="true"><path d="M8 39c16-21 29-24 42-5 13-19 27-17 42 5-17-10-31-7-42 8-11-15-25-18-42-8Z"/><path class="motif-detail" d="M30 35c7-5 13-5 20 0m20 0c-7-5-13-5-20 0"/></svg>',
@@ -95,10 +100,21 @@ const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.st
           scenePathSvg.setAttribute('viewBox', '0 0 100 100');
           scenePathSvg.setAttribute('preserveAspectRatio', 'none');
           const scenePath = document.createElementNS(svgNamespace, 'path');
-          scenePath.setAttribute('d', sceneIndex % 2 ? 'M-8 82 C18 28 35 76 52 40 S82 6 108 38' : 'M-8 20 C18 70 38 25 55 62 S85 94 108 58');
+          const scenePathData = sceneIndex % 2 ? 'M-8 82 C18 28 35 76 52 40 S82 6 108 38' : 'M-8 20 C18 70 38 25 55 62 S85 94 108 58';
+          const scenePathTrack = document.createElementNS(svgNamespace, 'path');
+          scenePathTrack.setAttribute('class', 'scene-motion-path__track');
+          scenePathTrack.setAttribute('d', scenePathData);
+          scenePath.setAttribute('class', 'scene-motion-path__progress');
+          scenePath.setAttribute('d', scenePathData);
+          const sceneMarker = document.createElementNS(svgNamespace, 'circle');
+          sceneMarker.setAttribute('class', 'scene-motion-path__marker');
+          sceneMarker.setAttribute('r', '1.25');
+          scenePathSvg.append(scenePathTrack);
           scenePathSvg.append(scenePath);
+          scenePathSvg.append(sceneMarker);
           layer.append(scenePathSvg);
           scenePaths.push(scenePath);
+          scenePathMarkers.push(sceneMarker);
           for (let index = 0; index < 7; index += 1) {
             const star = document.createElement('button');
             star.type = 'button';
@@ -116,12 +132,12 @@ const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.st
             motif.className = `nature-motif nature-motif--${type}`;
             motif.setAttribute('aria-label', `唤醒背景${type === 'cloud' ? '云朵' : type === 'bird' ? '飞鸟' : type === 'grass' ? '草叶' : type === 'dragonfly' ? '蜻蜓' : type === 'fish' ? '游鱼' : '花朵'}`);
             motif.dataset.motif = type;
-            motif.style.setProperty('--motif-x', `${index === 0 ? 0 : index === 1 ? 47 + sceneIndex : 95 - sceneIndex}%`);
-            motif.style.setProperty('--motif-y', `${index === 0 ? 58 - sceneIndex * 2 : index === 1 ? 74 - sceneIndex * 2 : 54 + sceneIndex * 3}%`);
-            motif.style.setProperty('--motif-width', `${index === 1 ? 94 : 58}px`);
+            motif.style.setProperty('--motif-x', `${index === 0 ? -1 : index === 1 ? 44 + sceneIndex : 91 - sceneIndex}%`);
+            motif.style.setProperty('--motif-y', `${index === 0 ? 60 - sceneIndex : index === 1 ? 78 - sceneIndex * 2 : 58 + sceneIndex * 2}%`);
+            motif.style.setProperty('--motif-width', `${index === 1 ? 176 : 132}px`);
             motif.style.setProperty('--motif-delay', `${180 + index * 130}ms`);
             motif.innerHTML = natureSvg[type];
-            layer.append(motif);
+            section.append(motif);
           });
           const foreground = document.createElement('span');
           foreground.className = 'scene-motion-foreground';
@@ -175,7 +191,14 @@ const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.st
             scene.style.setProperty('--scene-drift', `${(localProgress - .5) * 34}px`);
             const scenePath = scenePaths[index];
             const length = Number(scenePath?.dataset.length || 0);
-            if (scenePath) scenePath.style.strokeDashoffset = String(length * (1 - localProgress));
+            if (scenePath) {
+              scenePath.style.strokeDashoffset = String(length * (1 - localProgress));
+              const marker = scenePathMarkers[index];
+              const point = scenePath.getPointAtLength(length * localProgress);
+              marker?.setAttribute('cx', String(point.x));
+              marker?.setAttribute('cy', String(point.y));
+              marker?.style.setProperty('--marker-opacity', localProgress > .04 && localProgress < .98 ? '1' : '.35');
+            }
           });
         };
         const requestSceneryUpdate = () => {
@@ -251,6 +274,64 @@ const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.st
           ripple.addEventListener('animationend', () => ripple.remove(), { once: true });
         });
       }
+
+      const browserHistoryKey = 'mi-yu-browser-history';
+      const browserHistoryIndexKey = 'mi-yu-browser-history-index';
+      const readBrowserHistory = () => {
+        try { return JSON.parse(window.sessionStorage.getItem(browserHistoryKey) || '[]'); }
+        catch { return []; }
+      };
+      let browserHistory = readBrowserHistory();
+      let browserHistoryIndex = Number(window.sessionStorage.getItem(browserHistoryIndexKey) ?? -1);
+      const currentBrowserUrl = window.location.href;
+      if (!browserHistory.length) {
+        browserHistory = [currentBrowserUrl];
+        browserHistoryIndex = 0;
+      } else if (browserHistory[browserHistoryIndex] !== currentBrowserUrl) {
+        const adjacentIndex = browserHistory.findIndex((url, index) => url === currentBrowserUrl && Math.abs(index - browserHistoryIndex) === 1);
+        if (adjacentIndex >= 0) browserHistoryIndex = adjacentIndex;
+        else {
+          browserHistory = browserHistory.slice(0, browserHistoryIndex + 1);
+          browserHistory.push(currentBrowserUrl);
+          browserHistoryIndex = browserHistory.length - 1;
+        }
+      }
+      const saveBrowserHistory = () => {
+        window.sessionStorage.setItem(browserHistoryKey, JSON.stringify(browserHistory));
+        window.sessionStorage.setItem(browserHistoryIndexKey, String(browserHistoryIndex));
+      };
+      const updateBrowserActions = () => {
+        const back = document.querySelector('[data-browser-action="back"]');
+        const forward = document.querySelector('[data-browser-action="forward"]');
+        if (back instanceof HTMLButtonElement) back.disabled = browserHistoryIndex <= 0;
+        if (forward instanceof HTMLButtonElement) forward.disabled = browserHistoryIndex >= browserHistory.length - 1;
+      };
+      saveBrowserHistory();
+      updateBrowserActions();
+      document.addEventListener('click', (event) => {
+        const link = event.target.closest('a[href]');
+        if (!link || link.hasAttribute('download') || link.target === '_blank' || event.defaultPrevented) return;
+        const target = new URL(link.href, window.location.href);
+        if (target.origin !== window.location.origin || target.href === window.location.href) return;
+        browserHistory = browserHistory.slice(0, browserHistoryIndex + 1);
+        browserHistory.push(target.href);
+        browserHistoryIndex = browserHistory.length - 1;
+        saveBrowserHistory();
+      }, { capture: true });
+      document.querySelectorAll('[data-browser-action]').forEach((button) => button.addEventListener('click', () => {
+        const action = button.getAttribute('data-browser-action');
+        button.classList.add('is-pressed');
+        window.setTimeout(() => button.classList.remove('is-pressed'), 180);
+        if (action === 'reload') {
+          window.location.reload();
+          return;
+        }
+        if (action === 'back' && browserHistoryIndex > 0) browserHistoryIndex -= 1;
+        else if (action === 'forward' && browserHistoryIndex < browserHistory.length - 1) browserHistoryIndex += 1;
+        else return;
+        saveBrowserHistory();
+        window.location.replace(browserHistory[browserHistoryIndex]);
+      }));
 
       document.querySelectorAll('.evidence-card, .project-card').forEach((windowElement) => {
         const handle = windowElement.querySelector('[data-window-drag-handle]');
