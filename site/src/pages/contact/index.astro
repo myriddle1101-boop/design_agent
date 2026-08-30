@@ -1,0 +1,5 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../data/site';
+---
+<BaseLayout title="Contact"><section class="page-header"><div class="shell"><p class="eyebrow">CONTACT</p><h1>联系</h1><p>希望进一步了解我的经历或项目？</p></div></section><section class="section"><div class="shell contact-grid"><div><p class="eyebrow">GET IN TOUCH</p><h2>保持联系</h2><p>欢迎通过邮箱联系，也可以下载简历查看完整经历。</p></div><div><div class="contact-method"><p class="meta">EMAIL</p><a href={`mailto:${site.email}`}>{site.email}</a><div class="button-row"><a class="button" href={`mailto:${site.email}`}>发送邮件</a><button class="button button--secondary" type="button" data-copy-email={site.email}>复制邮箱</button></div><p class="copy-status" data-copy-status aria-live="polite"></p></div><div class="contact-method"><p class="meta">PHONE / WECHAT</p><p><strong>{site.phone}</strong></p></div><div class="contact-method"><a class="button" href={site.resume} download>下载简历</a></div></div></div></section></BaseLayout>

@@ -1,0 +1,5 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { interests, skills, tools } from '../../data/site';
+---
+<BaseLayout title="About"><section class="page-header"><div class="shell"><p class="eyebrow">ABOUT</p><h1>关于我</h1><p>AI产品 × 设计工程 × 建筑学。</p></div></section><section class="section"><div class="shell about-grid"><img class="about-photo" src="/media/profile.jpg" alt="糜愉的生活照" /><div><p class="eyebrow">CROSS-DISCIPLINARY</p><h2>在结构、体验与技术之间工作</h2><p>具备AIGC生成链路、Prompt设计、RAG构建、Agent流程编排、指标体系、漏斗分析、效果评估与跨团队协作经验。</p><div class="tool-list">{skills.map((skill) => <span>{skill}</span>)}</div></div></div></section><section class="section section--sky"><div class="shell"><p class="eyebrow">INTERESTS</p><h2>兴趣</h2><p>兴趣素材尚待补充，以下为已确认的个人兴趣。</p><div class="interest-grid">{interests.map((interest) => <article class="interest-card"><strong>{interest}</strong><small>素材待补</small></article>)}</div></div></section><section class="section"><div class="shell"><p class="eyebrow">TOOLS</p><h2>工具</h2><div class="tool-list">{tools.map((tool) => <span>{tool}</span>)}</div></div></section></BaseLayout>

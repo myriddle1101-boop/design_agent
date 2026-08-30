@@ -1,0 +1,7 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { portfolioProjects } from '../../data/site';
+const filters = [['all','全部'], ['interaction','交互装置'], ['service','产品/服务'], ['space','空间/建筑'], ['aigc','AIGC艺术']];
+---
+<BaseLayout title="Portfolio"><section class="page-header"><div class="shell"><p class="eyebrow">PORTFOLIO</p><h1>设计作品</h1><p>交互装置、产品与服务、城市空间、建筑和AIGC作品。</p></div></section><section class="section"><div class="shell"><div class="filter-bar" data-filter-group="portfolio" aria-label="筛选设计作品">{filters.map(([value,label], index) => <button type="button" data-filter={value} aria-pressed={index === 0 ? 'true' : 'false'}>{label}</button>)}</div><div class="project-grid">{portfolioProjects.map((project) => <ProjectCard project={project} group="portfolio" />)}</div></div></section></BaseLayout>

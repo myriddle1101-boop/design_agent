@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { aiProjects, portfolioProjects, site } from '../data/site';
+const featuredAi = aiProjects;
+const featuredDesign = portfolioProjects.filter((project) => ['seed-the-sun', 'ouroute'].includes(project.slug));
+const evidence = [
+  { title: '腾讯 CDG', detail: 'AI策略产品实习生', href: '/experience/#tencent' },
+  { title: 'SurveyX', detail: 'AI产品实习', href: '/experience/#surveyx' },
+  { title: '阅文 · 星海智创', detail: 'AI产品实习', href: '/experience/#yuewen' },
+  { title: 'Pathly', detail: '知识图谱 × Multi-Agent', href: '/ai-projects/pathly/' },
+  { title: 'AI申根签小助手', detail: '已上线网页', href: '/ai-projects/ai-schengen-assistant/' },
+];
+---
+<BaseLayout title="首页" description="糜愉的AI产品、设计工程与建筑学作品集。">
+  <section class="hero"><div class="shell hero-grid"><div><p class="eyebrow">AI PRODUCT · DESIGN ENGINEERING</p><h1>{site.name}</h1><p class="hero-role">{site.role}</p><p class="hero-copy">帝国理工 Design Engineering 在读｜同济大学建筑学。聚焦AIGC生成链路、Prompt设计、RAG构建、Agent流程编排与数据指标分析。</p><div class="button-row"><a class="button" href="/ai-projects/">查看AI项目 <span aria-hidden="true">↗</span></a><a class="button button--secondary" href="/experience/">查看经历</a><a class="button button--secondary" href={site.resume} download>下载简历</a></div></div><img class="hero-photo" src="/media/profile.jpg" alt="糜愉的生活照" /></div></section>
+  <section class="section"><div class="shell"><div class="section-head"><div><p class="eyebrow">EVIDENCE</p><h2>从产品问题到真实证据</h2></div><p>最近实习、AI项目和跨学科设计训练构成同一条路径。</p></div><div class="evidence-grid">{evidence.map((item) => <a class="evidence-card" href={item.href}><span>01 / {item.detail}</span><strong>{item.title}</strong><p>查看对应经历或项目。</p></a>)}</div></div></section>
+  <section class="section section--sky"><div class="shell"><div class="section-head"><div><p class="eyebrow">SELECTED AI PROJECTS</p><h2>把复杂链路转化为可用体验</h2></div><a class="button button--secondary" href="/ai-projects/">全部AI项目</a></div><div class="project-grid">{featuredAi.map((project) => <ProjectCard project={project} />)}</div></div></section>
+  <section class="section section--green"><div class="shell"><div class="section-head"><div><p class="eyebrow">DESIGN BACKGROUND</p><h2>从建筑与交互出发</h2></div><a class="button button--secondary" href="/portfolio/">查看设计作品</a></div><div class="project-grid">{featuredDesign.map((project) => <ProjectCard project={project} />)}</div></div></section>
+  <section class="section"><div class="shell contact-grid"><div><p class="eyebrow">LET'S TALK</p><h2>想进一步了解我的经历或项目？</h2></div><div><p>邮箱</p><a class="button" href={`mailto:${site.email}`}>{site.email}</a><p style="margin-top:1rem">电话 / 微信：<strong>{site.phone}</strong></p><a class="button button--secondary" href="/contact/">联系我</a></div></div></section>
+</BaseLayout>

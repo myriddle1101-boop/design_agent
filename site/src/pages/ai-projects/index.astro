@@ -1,0 +1,7 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { aiProjects } from '../../data/site';
+const filters = [['all','全部'], ['agent','Agent'], ['rag','RAG/知识图谱'], ['iot','IoT'], ['live','已上线']];
+---
+<BaseLayout title="AI Projects"><section class="page-header"><div class="shell"><p class="eyebrow">AI PROJECTS</p><h1>AI项目</h1><p>围绕Agent、RAG/知识图谱、生成质量和可执行体验的项目实践。</p></div></section><section class="section"><div class="shell"><div class="filter-bar" data-filter-group="ai" aria-label="筛选AI项目">{filters.map(([value,label], index) => <button type="button" data-filter={value} aria-pressed={index === 0 ? 'true' : 'false'}>{label}</button>)}</div><div class="project-grid">{aiProjects.map((project) => <ProjectCard project={project} group="ai" />)}</div></div></section></BaseLayout>

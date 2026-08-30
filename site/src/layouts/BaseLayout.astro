@@ -1,0 +1,68 @@
+---
+import '../styles/global.css';
+import { site } from '../data/site';
+
+interface Props { title: string; description?: string; }
+const { title, description = '糜愉的AI产品、设计工程与建筑学作品集。' } = Astro.props;
+const pathname = Astro.url.pathname;
+const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href);
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title} · {site.name}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主要内容</a>
+    <header class="site-header">
+      <div class="shell nav-shell">
+        <a class="brand" href="/" aria-label="糜愉首页"><span>MI</span><span>YU</span></a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">菜单</button>
+        <nav id="site-nav" class="site-nav" aria-label="主导航">
+          {site.nav.map((item) => <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>)}
+        </nav>
+      </div>
+    </header>
+    <main id="main"><slot /></main>
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <p><strong>糜愉</strong> · AI商业化产品方向</p>
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+      </div>
+    </footer>
+    <script>
+      const toggle = document.querySelector('.menu-toggle');
+      const nav = document.querySelector('.site-nav');
+      toggle?.addEventListener('click', () => {
+        const open = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!open));
+        nav?.classList.toggle('is-open', !open);
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+          toggle.setAttribute('aria-expanded', 'false'); nav?.classList.remove('is-open'); toggle.focus();
+        }
+      });
+      document.querySelectorAll('[data-copy-email]').forEach((button) => button.addEventListener('click', async () => {
+        const status = document.querySelector('[data-copy-status]');
+        try { await navigator.clipboard.writeText(button.getAttribute('data-copy-email') || ''); if (status) status.textContent = '邮箱已复制。'; }
+        catch { if (status) status.textContent = '复制未成功，可手动选择邮箱。'; }
+        window.setTimeout(() => { if (status) status.textContent = ''; }, 2400);
+      }));
+      document.querySelectorAll('[data-filter-group]').forEach((group) => {
+        const buttons = group.querySelectorAll('[data-filter]');
+        const cards = document.querySelectorAll(`[data-filter-card="${group.getAttribute('data-filter-group')}"]`);
+        const apply = (filter) => {
+          cards.forEach((card) => { const match = filter === 'all' || card.getAttribute('data-categories')?.split(' ').includes(filter); card.toggleAttribute('hidden', !match); });
+          buttons.forEach((button) => button.setAttribute('aria-pressed', String(button.getAttribute('data-filter') === filter)));
+          const url = new URL(window.location.href); filter === 'all' ? url.searchParams.delete('filter') : url.searchParams.set('filter', filter); window.history.replaceState({}, '', url);
+        };
+        const initial = new URLSearchParams(window.location.search).get('filter'); if (initial && [...buttons].some((b) => b.getAttribute('data-filter') === initial)) apply(initial);
+        buttons.forEach((button) => button.addEventListener('click', () => apply(button.getAttribute('data-filter') || 'all')));
+      });
+    </script>
+  </body>
+</html>

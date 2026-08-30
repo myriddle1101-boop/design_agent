@@ -1,0 +1,24 @@
+---
+import type { Project } from '../data/site';
+interface Props { project: Project; }
+const { project } = Astro.props;
+const backHref = project.kind === 'ai' ? '/ai-projects/' : '/portfolio/';
+---
+<a class="back-link" href={backHref}>← 返回{project.kind === 'ai' ? 'AI Projects' : 'Portfolio'}</a>
+<section class="project-hero">
+  <div>
+    <p class="eyebrow">{project.kind === 'ai' ? 'AI PROJECT' : 'PORTFOLIO'}</p>
+    <h1>{project.title}</h1>
+    <p class="lead">{project.summary}</p>
+    <div class="tag-row">{project.categories.map((category) => <span class="tag">{category}</span>)}</div>
+    {project.period && <p class="project-fact">时间：{project.period}</p>}
+    {project.role && <p class="project-fact">角色：{project.role}</p>}
+    {project.teamNote && <p class="project-fact">{project.teamNote}</p>}
+  </div>
+  {project.cover ? <img src={project.cover.src} alt={project.cover.alt} /> : <div class="media-placeholder hero-placeholder"><span>素材待补</span><small>{project.placeholder}</small></div>}
+</section>
+<section class="detail-section"><p class="eyebrow">01 / 命题</p><h2>项目问题</h2><p class="detail-copy">{project.problem}</p></section>
+<section class="detail-section"><p class="eyebrow">02 / 过程</p><h2>可确认工作</h2><ul class="detail-list">{project.contributions.map((item) => <li>{item}</li>)}</ul></section>
+{project.outcomes && <section class="detail-section results"><p class="eyebrow">03 / 证据</p><h2>材料中的结果</h2><ul class="metric-list">{project.outcomes.map((item) => <li>{item}</li>)}</ul></section>}
+{project.gallery && <section class="detail-section"><p class="eyebrow">04 / 图像</p><h2>过程与证据</h2><div class="gallery">{project.gallery.map((media) => <figure><img src={media.src} alt={media.alt} loading="lazy" /><figcaption>{media.alt}</figcaption></figure>)}</div></section>}
+{project.links && <section class="detail-section"><p class="eyebrow">05 / 链接</p><h2>项目入口</h2><div class="link-row">{project.links.map((link) => <a class="button button--secondary" href={link.href} target="_blank" rel="noopener noreferrer">{link.label} <span class="sr-only">（在新窗口打开）</span>↗</a>)}</div></section>}
