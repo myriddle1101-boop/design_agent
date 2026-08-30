@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="field" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d8edb6"/><stop offset=".46" stop-color="#8dcc6a"/><stop offset="1" stop-color="#3c874e"/></linearGradient>
+    <filter id="rough"><feTurbulence baseFrequency=".014" numOctaves="3" seed="41" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="10"/></filter>
+    <pattern id="stems" width="74" height="80" patternUnits="userSpaceOnUse"><path d="m12 80 8-44m0 44 18-32m20 32-4-49" stroke="#2d7d48" stroke-width="3" opacity=".48"/></pattern>
+    <g id="daisy"><path d="M20 70 22 31" stroke="#287345" stroke-width="4"/><g fill="#fffbe8"><ellipse cx="22" cy="19" rx="7" ry="13"/><ellipse cx="22" cy="19" rx="7" ry="13" transform="rotate(72 22 19)"/><ellipse cx="22" cy="19" rx="7" ry="13" transform="rotate(144 22 19)"/><ellipse cx="22" cy="19" rx="7" ry="13" transform="rotate(216 22 19)"/><ellipse cx="22" cy="19" rx="7" ry="13" transform="rotate(288 22 19)"/></g><circle cx="22" cy="19" r="6" fill="#f4c32e"/></g>
+    <g id="blue"><path d="M18 65 20 28" stroke="#287345" stroke-width="4"/><circle cx="20" cy="18" r="14" fill="#3677c8"/><circle cx="20" cy="18" r="5" fill="#ffe456"/></g>
+  </defs>
+  <rect width="1600" height="900" fill="url(#field)"/>
+  <g filter="url(#rough)"><path d="M-70 390c193-123 376-114 542 4 188-139 374-127 538 18 196-142 410-118 660 18v470H-70z" fill="#78ba5b"/><path d="M-70 620c211-98 390-79 553 36 205-119 408-101 566 26 188-99 374-92 621 27v191H-70z" fill="#4a984f"/></g>
+  <path d="M930-40c-112 197 93 281-86 409S557 573 679 940" fill="none" stroke="#fffbe9" stroke-width="70" stroke-linecap="round" opacity=".82" filter="url(#rough)"/>
+  <rect y="330" width="1600" height="570" fill="url(#stems)"/>
+  <g><use href="#daisy" x="70" y="590"/><use href="#blue" x="160" y="690"/><use href="#daisy" x="285" y="510" transform="scale(1.2)"/><use href="#blue" x="430" y="735"/><use href="#daisy" x="560" y="640"/><use href="#blue" x="1020" y="560" transform="scale(1.15)"/><use href="#daisy" x="1150" y="700"/><use href="#blue" x="1290" y="620"/><use href="#daisy" x="1450" y="520" transform="scale(1.25)"/></g>
+</svg>

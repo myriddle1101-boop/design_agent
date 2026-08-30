@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#bfe8e9"/><stop offset=".48" stop-color="#70bdc2"/><stop offset="1" stop-color="#347f91"/></linearGradient>
+    <filter id="rough"><feTurbulence baseFrequency=".012" numOctaves="3" seed="31" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="12"/></filter>
+    <pattern id="ripples" width="160" height="74" patternUnits="userSpaceOnUse"><path d="M8 28c36-15 65 15 106 0m-82 27c29-11 61 10 94-2" fill="none" stroke="#f6fff5" stroke-width="5" stroke-linecap="round" opacity=".54"/></pattern>
+    <g id="reed"><path d="M10 80 18 18M22 80 39 31M35 80 31 9" stroke="#296e4b" stroke-width="5" stroke-linecap="round"/><path d="m17 26-10-8m31 20 10-8m-17-8-9-11" stroke="#4a9655" stroke-width="4"/></g>
+  </defs>
+  <rect width="1600" height="900" fill="url(#water)"/>
+  <g filter="url(#rough)"><path d="M-70 0h530c150 92 220 198 152 315-95 164-293 166-342 340-28 98 21 181 105 245H-70z" fill="#69a95e"/><path d="M1670 0h-500c-143 94-203 205-119 326 103 149 286 169 322 332 24 106-34 186-124 242h421z" fill="#4e9856"/><path d="M-70 720c195-63 319-42 465 49 139 87 284 78 420 24 165-66 309-62 446 20 125 75 254 71 409 14v73H-70z" fill="#347b4b"/></g>
+  <rect width="1600" height="900" fill="url(#ripples)"/>
+  <path d="M260 180c240 110 385 98 574 22s327-57 508 36" fill="none" stroke="#fffde8" stroke-width="26" stroke-linecap="round" stroke-dasharray="88 23 9 17" opacity=".72"/>
+  <g><use href="#reed" x="40" y="610"/><use href="#reed" x="250" y="720" transform="scale(1.15)"/><use href="#reed" x="1270" y="660"/><use href="#reed" x="1480" y="560" transform="scale(1.2)"/></g>
+</svg>

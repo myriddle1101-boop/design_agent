@@ -109,6 +109,11 @@ h3 { margin: .4rem 0; font-size: 1.45rem; line-height: 1.2; }
 .section:nth-of-type(even)::before { position: absolute; top: 1.3rem; left: max(24px, calc((100% - var(--max)) / 2)); width: 84px; height: 18px; background: var(--star); clip-path: polygon(3% 10%, 100% 0, 95% 90%, 0 100%); content: ""; opacity: .9; }
 .section--sky, .section--green { background: #72b25d url('/media/scenes/scene-meadow.svg') center / cover no-repeat; }
 .section:nth-of-type(4n) { background: #4f85ac url('/media/scenes/scene-sky.svg') center / cover no-repeat; }
+.hero.scene-sky { background: #204b82 url('/media/scenes/scene-sky.svg') center / cover no-repeat; }
+.section.scene-mountain { background: #89b995 url('/media/scenes/scene-mountain.svg') center / cover no-repeat; }
+.section.scene-meadow { background: #72b25d url('/media/scenes/scene-meadow.svg') center / cover no-repeat; }
+.section.scene-stream { background: #65aeb6 url('/media/scenes/scene-stream.svg') center / cover no-repeat; }
+.section.scene-flower { background: #78b75c url('/media/scenes/scene-flower.svg') center / cover no-repeat; }
 .section-head { display: flex; align-items: end; justify-content: space-between; gap: 2rem; margin-bottom: 2rem; }
 .section-head h2, .section-head p { text-shadow: 0 1px 0 rgba(255, 255, 255, .82), 0 0 14px rgba(255, 255, 255, .68); }
 .section-head p { max-width: 38rem; margin: 0; }
