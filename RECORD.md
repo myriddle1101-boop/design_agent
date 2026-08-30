@@ -1020,6 +1020,7 @@ R1–R9不再新增正式评价标准，只允许在不改变含义的情况下�
 - 剩余限制：缺少录屏、键盘流程和真实`prefers-reduced-motion`环境验证；移动端不在本轮范围。
 - 下一轮候选问题：仅在用户验收R4后确定。
 - 代码、证据与初始文档提交：`ae609138278a4ab3cd246878a89d371cd024694e`，提交说明为`feat(motion): implement R4 site-wide motion system`。
+- 用户验收反馈后的继续修复提交：`2f3a9801bc0e947a1c05c91a3d75158222e06e37`，提交说明为`feat(motion): complete visible R4 interactions`。
 - Git标签：待用户验收后决定。
 
 ### R5–R9
