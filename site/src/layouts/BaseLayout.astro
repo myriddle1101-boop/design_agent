@@ -75,9 +75,67 @@ const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.st
         main.insertBefore(backdrop, content);
 
         const scenes = [...document.querySelectorAll('.hero, .page-header, .section')];
-        scenes.forEach((section) => section.setAttribute('data-motion', 'section'));
+        const scenePaths = [];
+        const natureSvg = {
+          cloud: '<svg viewBox="0 0 120 62" aria-hidden="true"><path d="M16 49h88c9 0 13-6 10-13-3-7-10-9-18-7C92 16 80 10 67 16 57 1 34 8 31 25 12 20 3 42 16 49Z"/><path class="motif-detail" d="M30 38c19 5 39 4 61-2"/></svg>',
+          bird: '<svg viewBox="0 0 100 58" aria-hidden="true"><path d="M8 39c16-21 29-24 42-5 13-19 27-17 42 5-17-10-31-7-42 8-11-15-25-18-42-8Z"/><path class="motif-detail" d="M30 35c7-5 13-5 20 0m20 0c-7-5-13-5-20 0"/></svg>',
+          grass: '<svg viewBox="0 0 100 90" aria-hidden="true"><path d="M12 88c4-30 10-50 20-68-2 29 1 49 8 68C42 48 50 25 58 8c-3 34 0 61 8 80 5-28 14-48 26-61-8 24-11 44-8 61Z"/><path class="motif-detail" d="M2 88h96"/></svg>',
+          dragonfly: '<svg viewBox="0 0 116 82" aria-hidden="true"><path d="M57 37C39 2 5 4 13 24c5 12 25 15 44 18-18 3-39 8-43 21-6 20 28 16 44-15 17 31 51 35 44 15-4-13-25-18-43-21 20-3 40-6 45-18 8-20-26-22-45 13Z"/><path class="motif-detail" d="M58 23v49m-5-32h10"/></svg>',
+          fish: '<svg viewBox="0 0 120 70" aria-hidden="true"><path d="M13 35 2 15c18 1 27 7 35 15C50 12 77 8 102 35 77 62 50 58 37 40 29 49 20 55 2 55Z"/><circle class="motif-eye" cx="86" cy="30" r="3"/><path class="motif-detail" d="M37 30c11 5 11 5 0 10m34-19c-7 8-7 20 0 28"/></svg>',
+          flower: '<svg viewBox="0 0 90 120" aria-hidden="true"><path class="motif-stem" d="M45 113V55m0 35c-15-18-27-14-28-2 8 6 18 7 28 2Zm0-18c14-19 28-17 30-5-7 8-18 9-30 5Z"/><path d="M45 9c12 0 15 12 9 20 10-4 21 4 17 15-3 10-15 11-22 5 2 11-8 20-18 14-8-5-5-17 3-22-11 0-18-11-12-20 6-9 18-6 23 2-3-8 1-14 10-14Z"/><circle class="motif-eye" cx="45" cy="38" r="8"/></svg>'
+        };
+        const motifTypesFor = (scene) => scene.classList.contains('scene-stream') ? ['fish', 'grass', 'fish'] : scene.classList.contains('scene-flower') ? ['flower', 'dragonfly', 'flower'] : scene.classList.contains('scene-meadow') ? ['dragonfly', 'grass', 'flower'] : scene.classList.contains('scene-mountain') ? ['bird', 'grass', 'cloud'] : ['cloud', 'bird', 'cloud'];
+        const sceneLayers = scenes.map((section, sceneIndex) => {
+          section.setAttribute('data-motion', 'section');
+          const layer = document.createElement('div');
+          layer.className = 'scene-motion-layer';
+          layer.setAttribute('aria-hidden', 'true');
+          const scenePathSvg = document.createElementNS(svgNamespace, 'svg');
+          scenePathSvg.setAttribute('class', 'scene-motion-path');
+          scenePathSvg.setAttribute('viewBox', '0 0 100 100');
+          scenePathSvg.setAttribute('preserveAspectRatio', 'none');
+          const scenePath = document.createElementNS(svgNamespace, 'path');
+          scenePath.setAttribute('d', sceneIndex % 2 ? 'M-8 82 C18 28 35 76 52 40 S82 6 108 38' : 'M-8 20 C18 70 38 25 55 62 S85 94 108 58');
+          scenePathSvg.append(scenePath);
+          layer.append(scenePathSvg);
+          scenePaths.push(scenePath);
+          for (let index = 0; index < 7; index += 1) {
+            const star = document.createElement('button');
+            star.type = 'button';
+            star.className = 'scene-motion-star';
+            star.tabIndex = -1;
+            star.setAttribute('aria-label', '点亮背景星星');
+            star.style.setProperty('--scene-star-x', `${8 + ((index * 17 + sceneIndex * 11) % 86)}%`);
+            star.style.setProperty('--scene-star-y', `${10 + ((index * 23 + sceneIndex * 7) % 72)}%`);
+            star.style.setProperty('--scene-star-size', `${index % 3 === 0 ? 18 : index % 2 === 0 ? 12 : 8}px`);
+            layer.append(star);
+          }
+          motifTypesFor(section).forEach((type, index) => {
+            const motif = document.createElement('button');
+            motif.type = 'button';
+            motif.className = `nature-motif nature-motif--${type}`;
+            motif.setAttribute('aria-label', `唤醒背景${type === 'cloud' ? '云朵' : type === 'bird' ? '飞鸟' : type === 'grass' ? '草叶' : type === 'dragonfly' ? '蜻蜓' : type === 'fish' ? '游鱼' : '花朵'}`);
+            motif.dataset.motif = type;
+            motif.style.setProperty('--motif-x', `${index === 0 ? 0 : index === 1 ? 47 + sceneIndex : 95 - sceneIndex}%`);
+            motif.style.setProperty('--motif-y', `${index === 0 ? 58 - sceneIndex * 2 : index === 1 ? 74 - sceneIndex * 2 : 54 + sceneIndex * 3}%`);
+            motif.style.setProperty('--motif-width', `${index === 1 ? 94 : 58}px`);
+            motif.style.setProperty('--motif-delay', `${180 + index * 130}ms`);
+            motif.innerHTML = natureSvg[type];
+            layer.append(motif);
+          });
+          const foreground = document.createElement('span');
+          foreground.className = 'scene-motion-foreground';
+          layer.append(foreground);
+          section.prepend(layer);
+          return layer;
+        });
         const motionItems = [...document.querySelectorAll('.hero-grid > div, .hero-photo, .page-header .shell, .section-head, .project-card, .evidence-card, .timeline > article, .timeline > details, .detail-section, .contact-grid > div, .about-grid > div, .interest-card, .gallery figure, .footer-inner')];
-        motionItems.forEach((item) => item.setAttribute('data-motion-item', ''));
+        motionItems.forEach((item, index) => {
+          item.setAttribute('data-motion-item', '');
+          const group = item.closest('[data-motion="section"]');
+          const siblings = group ? [...group.querySelectorAll('[data-motion-item]')] : [];
+          item.style.setProperty('--motion-delay', `${Math.min(280, Math.max(0, siblings.indexOf(item)) * 70)}ms`);
+        });
 
         const observer = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {
@@ -88,19 +146,36 @@ const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.st
         }, { threshold: 0.12, rootMargin: '0px 0px -10% 0px' });
         motionItems.forEach((item) => observer.observe(item));
 
+        const sceneObserver = new IntersectionObserver((entries) => entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add('is-scene-active');
+        }), { threshold: .18 });
+        scenes.forEach((scene) => sceneObserver.observe(scene));
+
         const pathLength = path.getTotalLength();
         path.style.strokeDasharray = String(pathLength);
         path.style.strokeDashoffset = String(pathLength);
+        scenePaths.forEach((scenePath) => {
+          const length = scenePath.getTotalLength();
+          scenePath.dataset.length = String(length);
+          scenePath.style.strokeDasharray = String(length);
+          scenePath.style.strokeDashoffset = String(length);
+        });
         let ticking = false;
         const updateScenery = () => {
           ticking = false;
           const scrollable = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
           const progress = Math.min(1, Math.max(0, window.scrollY / scrollable));
           path.style.strokeDashoffset = String(pathLength * (1 - progress));
-          scenes.forEach((scene) => {
+          scenes.forEach((scene, index) => {
             const rect = scene.getBoundingClientRect();
             const relative = (rect.top + rect.height / 2 - window.innerHeight / 2) / window.innerHeight;
-            scene.style.setProperty('--scene-shift', `${Math.max(-24, Math.min(24, relative * 13))}px`);
+            const localProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)));
+            scene.style.setProperty('--scene-shift', `${Math.max(-42, Math.min(42, relative * 28))}px`);
+            scene.style.setProperty('--scene-progress', String(localProgress));
+            scene.style.setProperty('--scene-drift', `${(localProgress - .5) * 34}px`);
+            const scenePath = scenePaths[index];
+            const length = Number(scenePath?.dataset.length || 0);
+            if (scenePath) scenePath.style.strokeDashoffset = String(length * (1 - localProgress));
           });
         };
         const requestSceneryUpdate = () => {
@@ -115,7 +190,7 @@ const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.st
         let pointerTicking = false;
         let pointerX = 0;
         let pointerY = 0;
-        const stars = [...backdrop.querySelectorAll('.motion-star')];
+        const stars = [...document.querySelectorAll('.scene-motion-star')];
         main.addEventListener('pointermove', (event) => {
           if (event.pointerType === 'touch') return;
           pointerX = event.clientX;
@@ -129,10 +204,11 @@ const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.st
               const dx = pointerX - (rect.left + rect.width / 2);
               const dy = pointerY - (rect.top + rect.height / 2);
               const distance = Math.hypot(dx, dy);
-              const strength = Math.max(0, 1 - distance / 120);
-              star.style.setProperty('--star-move-x', `${Math.max(-5, Math.min(5, dx * strength * .03))}px`);
-              star.style.setProperty('--star-move-y', `${Math.max(-5, Math.min(5, dy * strength * .03))}px`);
-              star.style.setProperty('--star-brightness', String(1 + strength * .65));
+              const strength = Math.max(0, 1 - distance / 150);
+              star.style.setProperty('--star-move-x', `${Math.max(-10, Math.min(10, dx * strength * .07))}px`);
+              star.style.setProperty('--star-move-y', `${Math.max(-10, Math.min(10, dy * strength * .07))}px`);
+              star.style.setProperty('--star-brightness', String(1 + strength * 1.25));
+              star.style.setProperty('--star-scale', String(1 + strength * .45));
             });
           });
         });
@@ -140,18 +216,103 @@ const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.st
           star.style.setProperty('--star-move-x', '0px');
           star.style.setProperty('--star-move-y', '0px');
           star.style.setProperty('--star-brightness', '1');
+          star.style.setProperty('--star-scale', '1');
+        }));
+        stars.forEach((star) => star.addEventListener('click', (event) => {
+          event.stopPropagation();
+          star.classList.remove('is-lit');
+          void star.offsetWidth;
+          star.classList.add('is-lit');
+          const burst = document.createElement('span');
+          burst.className = 'scene-star-burst';
+          star.parentElement?.append(burst);
+          burst.style.left = star.style.getPropertyValue('--scene-star-x');
+          burst.style.top = star.style.getPropertyValue('--scene-star-y');
+          burst.addEventListener('animationend', () => burst.remove(), { once: true });
+        }));
+        document.querySelectorAll('.nature-motif').forEach((motif) => motif.addEventListener('click', (event) => {
+          event.stopPropagation();
+          motif.classList.remove('is-awake');
+          void motif.offsetWidth;
+          motif.classList.add('is-awake');
+          motif.addEventListener('animationend', () => motif.classList.remove('is-awake'), { once: true });
         }));
         main.addEventListener('click', (event) => {
-          if (event.target.closest('a, button, summary, input, select, textarea, details')) return;
+          if (event.target.closest('a, button, summary, input, select, textarea, details, .shell')) return;
+          const scene = event.target.closest('[data-motion="section"]');
+          const sceneLayer = scene?.querySelector('.scene-motion-layer');
+          if (!scene || !sceneLayer) return;
           const ripple = document.createElement('span');
-          const rect = main.getBoundingClientRect();
+          const rect = scene.getBoundingClientRect();
           ripple.className = 'motion-ripple';
           ripple.style.left = `${event.clientX - rect.left}px`;
           ripple.style.top = `${event.clientY - rect.top}px`;
-          backdrop.append(ripple);
+          sceneLayer.append(ripple);
           ripple.addEventListener('animationend', () => ripple.remove(), { once: true });
         });
       }
+
+      document.querySelectorAll('.evidence-card, .project-card').forEach((windowElement) => {
+        const handle = windowElement.querySelector('[data-window-drag-handle]');
+        if (!handle) return;
+        windowElement.classList.add('draggable-window');
+        let startX = 0;
+        let startY = 0;
+        let originX = 0;
+        let originY = 0;
+        let moved = false;
+        let pointerId = null;
+        handle.addEventListener('pointerdown', (event) => {
+          if (!motionEnabled() || event.pointerType === 'touch' || event.target.closest('[data-window-maximize]')) return;
+          pointerId = event.pointerId;
+          startX = event.clientX;
+          startY = event.clientY;
+          originX = Number(windowElement.dataset.dragX || 0);
+          originY = Number(windowElement.dataset.dragY || 0);
+          moved = false;
+          handle.setPointerCapture(pointerId);
+          document.querySelectorAll('.draggable-window.is-front').forEach((item) => item.classList.remove('is-front'));
+          windowElement.classList.add('is-front');
+          windowElement.classList.add('is-dragging');
+        });
+        handle.addEventListener('pointermove', (event) => {
+          if (pointerId !== event.pointerId) return;
+          const dx = event.clientX - startX;
+          const dy = event.clientY - startY;
+          if (Math.hypot(dx, dy) > 5) moved = true;
+          const bounds = windowElement.closest('.shell')?.getBoundingClientRect();
+          const rect = windowElement.getBoundingClientRect();
+          const currentX = Number(windowElement.dataset.dragX || 0);
+          const currentY = Number(windowElement.dataset.dragY || 0);
+          const baseLeft = rect.left - currentX;
+          const baseTop = rect.top - currentY;
+          const nextX = bounds ? Math.max(bounds.left - baseLeft, Math.min(bounds.right - (baseLeft + rect.width), originX + dx)) : originX + dx;
+          const nextY = bounds ? Math.max(bounds.top - baseTop, Math.min(bounds.bottom - (baseTop + rect.height), originY + dy)) : originY + dy;
+          windowElement.dataset.dragX = String(Math.round(nextX));
+          windowElement.dataset.dragY = String(Math.round(nextY));
+          windowElement.style.setProperty('--window-drag-x', `${nextX}px`);
+          windowElement.style.setProperty('--window-drag-y', `${nextY}px`);
+        });
+        const finishDrag = (event) => {
+          if (pointerId !== event.pointerId) return;
+          handle.releasePointerCapture(pointerId);
+          pointerId = null;
+          windowElement.classList.remove('is-dragging');
+          if (moved) {
+            windowElement.classList.add('is-moved');
+            windowElement.dataset.suppressClick = 'true';
+            window.setTimeout(() => delete windowElement.dataset.suppressClick, 160);
+          }
+        };
+        handle.addEventListener('pointerup', finishDrag);
+        handle.addEventListener('pointercancel', finishDrag);
+        windowElement.addEventListener('click', (event) => {
+          if (windowElement.dataset.suppressClick !== 'true') return;
+          event.preventDefault();
+          event.stopPropagation();
+          delete windowElement.dataset.suppressClick;
+        }, true);
+      });
 
       const toggle = document.querySelector('.menu-toggle');
       const nav = document.querySelector('.site-nav');

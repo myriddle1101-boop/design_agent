@@ -7,6 +7,14 @@ const href = project.kind === 'ai' ? `/ai-projects/${project.slug}/` : `/portfol
 <article class="project-card" data-filter-card={group} data-categories={project.categories.join(' ')}>
   <a class="project-card__link" href={href}>
     <div class="stack-frame">
+      <span class="window-titlebar window-drag-handle" data-window-drag-handle>
+        <span>PROJECT_VIEWER.EXE</span>
+        <span class="window-titlebar__controls">
+          <span aria-hidden="true">—</span>
+          <span class="window-maximize" data-window-maximize title="进入项目详情" aria-label="进入项目详情">□</span>
+          <span class="window-close-disabled" aria-hidden="true" title="此窗口不可关闭">×</span>
+        </span>
+      </span>
       {project.cover ? <img src={project.cover.src} alt={project.cover.alt} loading="lazy" /> : <div class="media-placeholder" aria-label={project.placeholder ?? '素材待补'}><span>素材待补</span><small>{project.placeholder ?? '项目主视觉待补'}</small></div>}
     </div>
     <div class="project-card__body">
