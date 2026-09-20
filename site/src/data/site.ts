@@ -76,6 +76,18 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: 'swaply', title: 'Swaply 技能互换平台', kind: 'ai', categories: ['agent', 'live'], period: '2026.9', role: '产品设计与Vibe Coding',
+    summary: '以信息流与双向匹配为核心的技能互换平台，让用户用自己会的技能交换想学的内容。',
+    problem: '许多人想学习新技能，但报班成本高、自学难坚持；与此同时，个人已有技能也缺少低门槛的分享与交换渠道。',
+    contributions: ['参考闲鱼式信息流，设计首页推荐、关键词搜索与结构化筛选的信息架构。', '设计包含技能水平、证书、年限、空闲时间、所在地与授课方式的结构化发布流程。', '以“对方能教什么—对方想学什么—为什么与你匹配”组织详情页和双向交换邀约。', '使用AI Coding完成黄橙色响应式原型，并以Streamlit部署公开可访问版本。'],
+    outcomes: ['完成首页推荐、搜索筛选、收藏、详情查看、技能发布与交换邀约的可交互原型。', '原型已在Streamlit Community Cloud公开上线。'],
+    cover: { src: '/media/swaply/swaply-cover.jpg', alt: 'Swaply技能互换平台摄影技能卡片视觉' },
+    links: [
+      { label: '打开在线原型', href: 'https://swaply-skill-exchange.streamlit.app/', kind: 'external' },
+      { label: '查看GitHub', href: 'https://github.com/myriddle1101-boop/swaply-streamlit', kind: 'github' },
+    ],
+  },
+  {
     slug: 'pathly', title: 'Pathly', kind: 'ai', categories: ['agent', 'rag'], period: '2026.6–8', role: '项目设计与实现',
     summary: '基于知识图谱与Multi-Agent的个性化学习平台。',
     problem: '帮助不同先验知识水平的学习者，将宽泛目标转化为可靠、可执行的学习路径。',
