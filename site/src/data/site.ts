@@ -192,13 +192,20 @@ export const projects: Project[] = [
     gallery: [{ src: '/media/ouroute/OURoute_价值主张_p09.jpg', alt: 'OURoute价值主张' }, { src: '/media/ouroute/OURoute_产品旅程_p10.jpg', alt: 'OURoute产品旅程' }, { src: '/media/ouroute/OURoute_服务功能_p17.jpg', alt: 'OURoute服务功能' }],
   },
   {
-    slug: 'other-works', title: '其他建筑与AIGC作品', kind: 'portfolio', categories: ['space', 'aigc'],
-    summary: '作品集中的建筑设计与AIGC项目图集。',
-    problem: '页面未清晰列出具体建筑项目名称、地点、职责和年份。',
-    contributions: ['以来源作品集页面作为图集展示，不补写未确认背景。'],
-    cover: { src: '/media/other/建筑作品选页_p39.jpg', alt: '建筑作品选页' },
-    gallery: [{ src: '/media/other/AIGC作品选页_p40.jpg', alt: 'AIGC作品选页' }],
-    links: [{ label: '建筑作品视频', href: 'https://youtu.be/NXC_HNw27Ak', kind: 'video' }, { label: 'AIGC作品视频', href: 'https://youtu.be/vbaYTBOoA5M', kind: 'video' }],
+    slug: 'architecture-works', title: '建筑项目', kind: 'portfolio', categories: ['space'],
+    summary: '作品集中的建筑设计项目图集。',
+    problem: '展示已确认的建筑设计作品图像，不补写未确认的项目背景。',
+    contributions: ['以来源作品集页面作为建筑项目图集展示。'],
+    cover: { src: '/media/other/建筑作品选页_p39.jpg', alt: '建筑项目作品选页' },
+    links: [{ label: '建筑作品视频', href: 'https://youtu.be/NXC_HNw27Ak', kind: 'video' }],
+  },
+  {
+    slug: 'aigc-works', title: 'AIGC作品', kind: 'portfolio', categories: ['aigc'],
+    summary: '作品集中的AIGC项目图集。',
+    problem: '展示已确认的AIGC作品图像，不补写未确认的项目背景。',
+    contributions: ['以来源作品集页面作为AIGC作品图集展示。'],
+    cover: { src: '/media/other/AIGC作品选页_p40.jpg', alt: 'AIGC作品选页' },
+    links: [{ label: 'AIGC作品视频', href: 'https://youtu.be/vbaYTBOoA5M', kind: 'video' }],
   },
 ];
 

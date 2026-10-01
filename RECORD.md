@@ -1066,6 +1066,13 @@ R1–R9不再新增正式评价标准，只允许在不改变含义的情况下�
 - 回归检查：`npm run build`通过，生成19页；项目详情路由与筛选数据均成功生成。
 - Git版本：`f1f0b7f1f496d84bd6f9e1d5b5ac4e796cf91ee3`，提交说明为`content: refine AI project filters and hardware projects`。
 
+### Portfolio分类拆分（不计入视觉迭代）
+
+- 用户要求：将建筑项目与AIGC作品分开，分类名称分别为“建筑项目”和“AIGC作品”。
+- 实际更新：Portfolio筛选标签改名；原“其他建筑与AIGC作品”拆为“建筑项目”和“AIGC作品”两个独立项目卡，分别保留原有对应图片与视频链接。
+- 回归检查：`npm run build`通过，生成20页；两个新详情页路由均成功生成。
+- Git版本：待本次Portfolio分类更新提交后填写。
+
 ## 九、每轮记录模板
 
 ### RX——轮次标题
