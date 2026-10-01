@@ -86,19 +86,7 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: 'swaply', title: 'Swaply 技能互换平台', kind: 'ai', categories: ['agent', 'live'], period: '2026.9', role: '产品设计与Vibe Coding',
-    summary: '以信息流与双向匹配为核心的技能互换平台，让用户用自己会的技能交换想学的内容。',
-    problem: '许多人想学习新技能，但报班成本高、自学难坚持；与此同时，个人已有技能也缺少低门槛的分享与交换渠道。',
-    contributions: ['参考闲鱼式信息流，设计首页推荐、关键词搜索与结构化筛选的信息架构。', '设计包含技能水平、证书、年限、空闲时间、所在地与授课方式的结构化发布流程。', '以“对方能教什么—对方想学什么—为什么与你匹配”组织详情页和双向交换邀约。', '使用AI Coding完成黄橙色响应式原型，并以Streamlit部署公开可访问版本。'],
-    outcomes: ['完成首页推荐、搜索筛选、收藏、详情查看、技能发布与交换邀约的可交互原型。', '原型已在Streamlit Community Cloud公开上线。'],
-    cover: { src: '/media/swaply/swaply-cover.jpg', alt: 'Swaply技能互换平台摄影技能卡片视觉' },
-    links: [
-      { label: '打开在线原型', href: 'https://swaply-skill-exchange.streamlit.app/', kind: 'external' },
-      { label: '查看GitHub', href: 'https://github.com/myriddle1101-boop/swaply-streamlit', kind: 'github' },
-    ],
-  },
-  {
-    slug: 'pathly', title: 'Pathly', kind: 'ai', categories: ['agent', 'rag'], period: '2026.6–8', role: '项目设计与实现',
+    slug: 'pathly', title: 'Pathly', kind: 'ai', categories: ['agent'], period: '2026.6–8', role: '项目设计与实现',
     summary: '基于知识图谱与Multi-Agent的个性化学习平台。',
     problem: '帮助不同先验知识水平的学习者，将宽泛目标转化为可靠、可执行的学习路径。',
     contributions: ['设计Planning与Content多Agent协作流程。', '将学习规划拆分为目标理解、知识点匹配、先修路径搜索和时间分配。', '融合知识图谱、原文检索与用户画像。', '建立“数据质量—模型输出—产品体验”三层评测框架，并完成对照、消融与用户测试设计。'],
@@ -113,7 +101,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'ai-schengen-assistant', title: 'AI申根签小助手', kind: 'ai', categories: ['agent', 'live'], period: '2026.4', role: '产品设计',
+    slug: 'ai-schengen-assistant', title: 'AI申根签小助手', kind: 'ai', categories: ['agent'], period: '2026.4', role: '产品设计',
     summary: '已上线网页的申根签行程规划助手。',
     problem: '帮助用户生成、校验、编辑并下载符合申根签规则的行程单。',
     contributions: ['设计行程骨架生成、真实机酒填充、二次编辑与最终行程单下载的Agent混合架构。', '使用规则校验识别主申国家、城市顺序、停留天数和路线合理性问题。', '建立正反例约束、字段级规则与Token管理的Prompt Engineering方法。', '围绕完整性、规则符合率和可执行性建立质量指标，并进行边界测试和抽样人评。'],
@@ -122,7 +110,7 @@ export const projects: Project[] = [
     links: [{ label: '打开已上线网页', href: 'https://aischengenvisaassistant-n4lmagbd2mkzu77ixyktbt.streamlit.app/', kind: 'external' }],
   },
   {
-    slug: 'smart-clothing-advisor', title: 'Smart Clothing Advisor', kind: 'ai', categories: ['agent', 'iot'], period: '2025.12', role: '课程项目作者',
+    slug: 'smart-clothing-advisor', title: 'Smart Clothing Advisor', kind: 'ai', categories: ['hardware'], period: '2025.12', role: '课程项目作者',
     summary: '天气感知的IoT穿衣决策系统。',
     problem: '结合环境感知与服装状态，为伦敦多变天气下的穿衣选择提供即时建议。',
     contributions: ['整合计算机视觉、环境传感与可执行实体反馈。', '设计服装状态与实时天气结合的穿衣决策系统。'],
@@ -136,6 +124,23 @@ export const projects: Project[] = [
       { label: '查看GitHub', href: 'https://github.com/myriddle1101-boop/Smart-Clothing-Advisor_Yu-Mi-CID-06056007', kind: 'github' },
       { label: '查看课程视频', href: 'https://www.youtube.com/watch?v=USV_8SZ_MFg', kind: 'video' },
     ],
+  },
+  {
+    slug: 'potmate', title: 'PotMate', kind: 'ai', categories: ['hardware'], role: '产品与控制系统设计',
+    summary: '面向老年人的电机驱动智能锅具辅助装置。',
+    problem: '针对腕力下降及倾倒锅具时的安全风险，设计可拆卸式电动辅助把手，在辅助用户的同时保留其自主控制。',
+    contributions: ['结合用户研究定义竖直握持、腕部支撑、通用夹具、电动倾倒和三按键交互方案。', '基于不同锅具重量及夹持高度开展扭矩测试，完成电机选型、传动与可伸缩棘轮夹具设计。', '负责ESP32 Super Mini控制代码，使用PWM驱动H桥控制器，接入霍尔编码器并设置倾斜角度安全限位。', '完成三轮夹具及主体结构迭代、3D打印和不同负载下的转速、位置控制与夹持效果测试。'],
+    cover: undefined,
+    placeholder: 'PotMate项目图片待补',
+    links: [{ label: '查看项目视频', href: 'https://youtu.be/0_tj8SUu33g', kind: 'video' }],
+  },
+  {
+    slug: 'shuzhi-yingjian', title: '数智营建', kind: 'ai', categories: ['hardware'], period: '2024', role: '灯光组长',
+    summary: '校政合作交互式木构空间与感知灯光系统。',
+    problem: '响应乡村振兴与文旅发展需求，参与打造10万元级交互式杉木公共空间，将调研、空间设计、灯光交互、实地建造和活动运营整合为闭环方案。',
+    contributions: ['深入基地开展实地考察，结合当地文化、生态条件与文旅需求参与空间及服务方案设计。', '统筹方案深化、物料采购、灯带加工、构件匹配、现场安装及联调进度，推动项目高标准落地。', '基于ESP32、局域网、超声波传感器及可编程灯带搭建交互系统，实现灯带、立柱与木构件的映射及联动。', '围绕政府、施工、材料及活动资源运营空间，结合数字化内容传播获得2万+曝光，推动相关文旅参与人数增长3倍。'],
+    cover: undefined,
+    placeholder: '数智营建项目图片待补',
   },
   {
     slug: 'seed-the-sun', title: 'Seed the Sun', kind: 'portfolio', categories: ['interaction', 'service'],

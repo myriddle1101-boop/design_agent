@@ -1059,6 +1059,13 @@ R1–R9不再新增正式评价标准，只允许在不改变含义的情况下�
 - 回归检查：`npm run build`通过，17页生成；本次未改变Tab结构、视觉系统、已有项目数据或交互逻辑。
 - Git版本：`36f530a5bf5340bdefdf1e42c60f41bd24dd9467`，提交说明为`content: complete education and internship timeline`。
 
+### 项目筛选与硬件项目更新（不计入视觉迭代）
+
+- 用户要求：移除Swaply；AI Projects筛选保留“全部、Agent”，将RAG/知识图谱与已上线合并到Agent；将IoT改为“硬件”；保留智能穿衣助手；新增简历中的PotMate与数智营建，并归入硬件。
+- 实际更新：删除Swaply项目及其卡片；Pathly与AI申根签小助手仅保留Agent分类；Smart Clothing Advisor、PotMate、数智营建归入硬件分类；新增两个详情页路由，缺少项目图片处使用明确的“项目图片待补”占位，不虚构素材。
+- 回归检查：`npm run build`通过，生成19页；项目详情路由与筛选数据均成功生成。
+- Git版本：待本次项目分类更新提交后填写。
+
 ## 九、每轮记录模板
 
 ### RX——轮次标题
