@@ -1057,7 +1057,7 @@ R1–R9不再新增正式评价标准，只允许在不改变含义的情况下�
 - 修改文件：`site/src/data/site.ts`、`site/src/pages/experience/index.astro`、`site/public/downloads/mi-yu-resume.pdf`。
 - 实际更新：帝国理工学习条目加入毕业时间、届次和六门核心课程；腾讯与SurveyX实习补充职责、链路、评测和量化结果；新增上海交通大学溥渊未来学院实习条目及两项评估结果；下载简历替换为用户指定的new3版本。
 - 回归检查：`npm run build`通过，17页生成；本次未改变Tab结构、视觉系统、已有项目数据或交互逻辑。
-- Git版本：待本次内容更新提交后填写。
+- Git版本：`36f530a5bf5340bdefdf1e42c60f41bd24dd9467`，提交说明为`content: complete education and internship timeline`。
 
 ## 九、每轮记录模板
 
