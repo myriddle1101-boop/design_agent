@@ -4,7 +4,8 @@ export type LinkItem = { label: string; href: string; kind?: 'external' | 'video
 export const site = {
   name: '糜愉',
   englishName: 'MI YU',
-  role: 'AI商业化产品方向',
+  role: 'AI产品方向',
+  profile: 'AI产品经验，熟悉AIGC链路，具备Prompt设计、RAG与Agent流程编排能力；具备产品洞察力，能分析用户根本需求并做出产品判断；具备数据驱动意识，能基于数据进行效果评估与Badcase归因；有海外经验，英语熟练；具有丰富Vibe Coding经验、较强的动手能力和自驱力。',
   email: '673867736@qq.com',
   phone: '18752971270',
   resume: '/downloads/mi-yu-resume.pdf',
@@ -109,12 +110,12 @@ export const projects: Project[] = [
   },
   {
     slug: 'ai-schengen-assistant', title: 'AI申根签小助手', kind: 'ai', categories: ['agent'], period: '2026.4', role: '产品设计',
-    summary: '已上线网页的申根签行程规划助手。',
-    problem: '帮助用户生成、校验、编辑并下载符合申根签规则的行程单。',
-    contributions: ['设计行程骨架生成、真实机酒填充、二次编辑与最终行程单下载的Agent混合架构。', '使用规则校验识别主申国家、城市顺序、停留天数和路线合理性问题。', '建立正反例约束、字段级规则与Token管理的Prompt Engineering方法。', '围绕完整性、规则符合率和可执行性建立质量指标，并进行边界测试和抽样人评。'],
-    cover: undefined,
-    placeholder: 'AI申根签网页截图待补',
-    links: [{ label: '打开已上线网页', href: 'https://aischengenvisaassistant-n4lmagbd2mkzu77ixyktbt.streamlit.app/', kind: 'external' }],
+    summary: '面向申根签行程单生成的Agent网页，支持行程生成、真实机酒信息填充、用户二次编辑与最终下载。',
+    problem: '针对行程单中的主申国家、城市顺序、停留天数和路线安排错误，提升生成内容的完整性与规则一致性。',
+    contributions: ['Agent网页搭建：设计“行程骨架生成—真实机酒填充—行程二次编辑—下载最终行程单”的混合架构，结合规则校验提前识别主申国家、城市顺序、停留天数和路线合理性问题。', '模型质量优化：针对行程单生成问题，建立正反例约束、字段级规则与Token管理的方法，降低生成错误并提高稳定性。', '质量评估：围绕行程单完整性、规则符合率和可执行性建立评价维度，开展边界测试与抽样人工评估。', '交付结果：完成网页上线、行程生成、编辑与下载流程，保留用户在导出前调整行程的控制权。'],
+    outcomes: ['已完成网页上线与可访问的行程生成、编辑、下载流程。', '已建立完整性、规则符合率和可执行性评价维度，并完成边界测试与抽样人工评估。'],
+    cover: { src: '/media/ai-schengen/landing-page.png', alt: 'AI申根签小助手行程工作区落地页' },
+    links: [{ label: '打开作品集网页', href: 'https://myriddle1101-boop.github.io/qianlihangjian/#/workspace/itinerary', kind: 'external' }, { label: '打开在线应用', href: 'https://aischengenvisaassistant-n4lmagbd2mkzu77ixyktbt.streamlit.app/', kind: 'external' }],
   },
   {
     slug: 'smart-clothing-advisor', title: 'Smart Clothing Advisor', kind: 'ai', categories: ['hardware'], period: '2025.12', role: '课程项目作者',
