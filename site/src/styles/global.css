@@ -295,6 +295,9 @@ h3 { margin: .4rem 0; font-size: 1.45rem; line-height: 1.2; }
 .gallery figure { position: relative; margin: 0; border: 2px solid var(--ink); border-radius: var(--radius); overflow: hidden; background: var(--white); box-shadow: var(--shadow-soft); }
 .gallery figure::before { display: block; height: 1.45rem; border-bottom: 2px solid var(--ink); background: var(--sky); content: "IMAGE_VIEWER"; padding-left: .45rem; font: .9rem/1.45rem var(--screen); }
 .gallery img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.gallery--shuzhi { align-items: start; }
+.gallery--shuzhi img { display: block; height: auto; aspect-ratio: auto; object-fit: contain; }
+.gallery--shuzhi figure:last-child { grid-column: 1 / -1; }
 .gallery figcaption { padding: .75rem; font-size: .82rem; }
 
 .about-grid, .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }

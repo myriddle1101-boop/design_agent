@@ -149,8 +149,16 @@ export const projects: Project[] = [
     summary: '校政合作交互式木构空间与感知灯光系统。',
     problem: '响应乡村振兴与文旅发展需求，参与打造10万元级交互式杉木公共空间，将调研、空间设计、灯光交互、实地建造和活动运营整合为闭环方案。',
     contributions: ['深入基地开展实地考察，结合当地文化、生态条件与文旅需求参与空间及服务方案设计。', '统筹方案深化、物料采购、灯带加工、构件匹配、现场安装及联调进度，推动项目高标准落地。', '基于ESP32、局域网、超声波传感器及可编程灯带搭建交互系统，实现灯带、立柱与木构件的映射及联动。', '围绕政府、施工、材料及活动资源运营空间，结合数字化内容传播获得2万+曝光，推动相关文旅参与人数增长3倍。'],
-    cover: undefined,
-    placeholder: '数智营建项目图片待补',
+    cover: { src: '/media/shuzhi-yingjian/night-color.jpg', alt: '数智营建彩色灯光夜景与水面倒影' },
+    gallery: [
+      { src: '/media/shuzhi-yingjian/night-white.jpg', alt: '夜景：白色灯光与水面倒影' },
+      { src: '/media/shuzhi-yingjian/night-color.jpg', alt: '夜景：彩色灯光与水面倒影' },
+      { src: '/media/shuzhi-yingjian/night-front.jpg', alt: '夜景：木构空间的彩色灯光正面实景' },
+      { src: '/media/shuzhi-yingjian/day-overview.jpg', alt: '日景：木构公共空间整体实景' },
+      { src: '/media/shuzhi-yingjian/timber-detail.jpg', alt: '木构细节：构件排列与连接节点' },
+      { src: '/media/shuzhi-yingjian/structure-upward.jpg', alt: '木构细节：空间内部仰视与节点装置' },
+      { src: '/media/shuzhi-yingjian/construction-process.jpg', alt: '建造过程：基地调研、方案比选、构造深化、构件加工、现场组装与灯光调试' },
+    ],
   },
   {
     slug: 'seed-the-sun', title: 'Seed the Sun', kind: 'portfolio', categories: ['interaction', 'service'],

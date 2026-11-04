@@ -1120,6 +1120,13 @@ R1–R9不再新增正式评价标准，只允许在不改变含义的情况下�
 - 验证：构建通过生成20页，Experience生成HTML含4处实习STAR区域，PotMate生成HTML含确认的测试数据；未进行浏览器视觉验收，不代替用户评分。
 - Git版本：随提交 `content: publish confirmed PotMate results and internship STAR summaries` 记录。
 
+### 数智营建照片补充
+
+- 用户要求：把这些图放进数智营建那个项目。
+- 实际更新：新增用户提供的7张原始JPG素材，彩色夜景作项目封面；图集按夜景、日景、结构细节与建造过程组织。图注仅描述照片可见内容。
+- 数智营建图集使用原图比例，最后一张建造过程长图跨列展示，避免被4:3裁切；其他项目图集样式不变。
+- Git版本：随 `content: add seven construction photos to Shuzhi project` 提交记录。
+
 ## 九、每轮记录模板
 
 ### RX——轮次标题
