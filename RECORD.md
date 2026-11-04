@@ -1095,6 +1095,15 @@ R1–R9不再新增正式评价标准，只允许在不改变含义的情况下�
 - 回归检查：`npm run build`通过，生成20页；项目详情链接与原有Tab逻辑保持不变。
 - Git版本：`3d4231869c31909542fe81b56f01fd2e8538e64f`，提交说明为`content: update AI product profile and Schengen project`。
 
+### 全项目STAR内容补充
+
+- 用户Prompt原文：你现在pathly用的star法则还不错，我希望你把其他的所有项目都补充成这样，有缺少的内容你可以告诉我，我给你补
+- 本次为内容补充，未进入新的视觉迭代。依据现有简历、项目说明与网站已确认数据，为其余12个项目分别增加情境、任务、行动、结果，保留Pathly原有STAR。
+- 实际文件：新增 `site/src/data/project-stories.ts`；公共详情标题显示对应项目名称；新增 `outputs/项目STAR待补充清单.md`。
+- 资料边界：设计作品只陈述已记录的方案与原型交付，未将交付推断为用户效果；建筑与AIGC选集明确仍需子项背景。未改写已有评分。
+- 验证：构建成功生成20页；逐项检查13个项目生成的HTML，全部含S/T/A/R四个模块，其他项目均未误用Pathly总结标题。未进行浏览器视觉验收。
+- Git版本：本节与代码同次提交，可通过提交说明 `content: add evidence-based STAR stories to all projects` 定位。
+
 ## 九、每轮记录模板
 
 ### RX——轮次标题

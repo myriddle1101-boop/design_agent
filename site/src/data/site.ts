@@ -1,3 +1,5 @@
+import { projectStories } from './project-stories';
+
 export type Media = { src: string; alt: string; caption?: string };
 export type LinkItem = { label: string; href: string; kind?: 'external' | 'video' | 'github' };
 
@@ -216,6 +218,10 @@ export const projects: Project[] = [
     links: [{ label: 'AIGC作品视频', href: 'https://youtu.be/vbaYTBOoA5M', kind: 'video' }],
   },
 ];
+
+for (const project of projects) {
+  if (projectStories[project.slug]) project.star = projectStories[project.slug];
+}
 
 export const aiProjects = projects.filter((project) => project.kind === 'ai');
 export const portfolioProjects = projects.filter((project) => project.kind === 'portfolio');
