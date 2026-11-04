@@ -1112,6 +1112,14 @@ R1–R9不再新增正式评价标准，只允许在不改变含义的情况下�
 - 本次核对仅涉及项目资料，下载简历与用户此前指定的毕业信息保持原值。
 - 版本：本节随 `content: reconcile project STAR details with new hardware resume` 提交，可通过提交说明定位。
 
+### PotMate用户确认数据与实习STAR补充
+
+- 用户Prompt原文：我是说这些事情都是真的发生过的，你可以直接更新到网站，然后实习里的那几段你也都可以写一个star法则，补充到这个页面对应的实习那里
+- 来源确认：用户明确确认此前示例中的三人分工、三轮迭代、3种锅具、0.5—2kg、30次中28次完成及2次位移、3名试用者反馈均真实发生，本次据此更新PotMate，不再标为假设。
+- 修改：PotMate的STAR补充上述数据；腾讯、SurveyX、上海交大语音陪伴与阅文各自的展开区域新增STAR总结，保留原有完整职责与指标；待补清单同步修订。
+- 验证：构建通过生成20页，Experience生成HTML含4处实习STAR区域，PotMate生成HTML含确认的测试数据；未进行浏览器视觉验收，不代替用户评分。
+- Git版本：随提交 `content: publish confirmed PotMate results and internship STAR summaries` 记录。
+
 ## 九、每轮记录模板
 
 ### RX——轮次标题
