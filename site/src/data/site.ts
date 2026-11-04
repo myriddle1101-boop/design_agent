@@ -90,7 +90,7 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: 'pathly', title: 'Pathly', kind: 'ai', categories: ['agent'], period: '2026.6–8', role: '项目设计与实现',
+    slug: 'pathly', title: 'Pathly', kind: 'ai', categories: ['agent'], period: '2026.6–2026.9', role: '独立设计与开发（个人项目）',
     summary: '基于知识图谱与Multi-Agent的个性化学习平台。',
     problem: '帮助不同先验知识水平的学习者，将宽泛目标转化为可靠、可执行的学习路径。',
     star: {
@@ -111,7 +111,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'ai-schengen-assistant', title: 'AI申根签小助手', kind: 'ai', categories: ['agent'], period: '2026.4', role: '产品设计',
+    slug: 'ai-schengen-assistant', title: 'AI申根签小助手', kind: 'ai', categories: ['agent'], period: '2026.3–2026.4', role: '个人项目', teamNote: '签里行间：1.0为Streamlit应用，2.0为签里行间网页。',
     summary: '面向申根签行程单生成的Agent网页，支持行程生成、真实机酒信息填充、用户二次编辑与最终下载。',
     problem: '针对行程单中的主申国家、城市顺序、停留天数和路线安排错误，提升生成内容的完整性与规则一致性。',
     contributions: ['Agent网页搭建：设计“行程骨架生成—真实机酒填充—行程二次编辑—下载最终行程单”的混合架构，结合规则校验提前识别主申国家、城市顺序、停留天数和路线合理性问题。', '模型质量优化：针对行程单生成问题，建立正反例约束、字段级规则与Token管理的方法，降低生成错误并提高稳定性。', '质量评估：围绕行程单完整性、规则符合率和可执行性建立评价维度，开展边界测试与抽样人工评估。', '交付结果：完成网页上线、行程生成、编辑与下载流程，保留用户在导出前调整行程的控制权。'],
@@ -120,7 +120,7 @@ export const projects: Project[] = [
     links: [{ label: '打开作品集网页', href: 'https://myriddle1101-boop.github.io/qianlihangjian/#/workspace/itinerary', kind: 'external' }, { label: '打开在线应用', href: 'https://aischengenvisaassistant-n4lmagbd2mkzu77ixyktbt.streamlit.app/', kind: 'external' }],
   },
   {
-    slug: 'smart-clothing-advisor', title: 'Smart Clothing Advisor', kind: 'ai', categories: ['hardware'], period: '2025.12', role: '课程项目作者',
+    slug: 'smart-clothing-advisor', title: 'Smart Clothing Advisor', kind: 'ai', categories: ['hardware'], period: '2025.11–2025.12', role: '个人项目',
     summary: '天气感知的IoT穿衣决策系统。',
     problem: '结合环境感知与服装状态，为伦敦多变天气下的穿衣选择提供即时建议。',
     contributions: ['整合计算机视觉、环境传感与可执行实体反馈。', '设计服装状态与实时天气结合的穿衣决策系统。'],
@@ -136,7 +136,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'potmate', title: 'PotMate', kind: 'ai', categories: ['hardware'], role: '产品与控制系统设计',
+    slug: 'potmate', title: 'PotMate', kind: 'ai', categories: ['hardware'], period: '2026.4–2026.5', role: '主导方案设计与控制系统设计', teamNote: '3人团队，参与实体原型制作与整机集成。',
     summary: '面向老年人的电机驱动智能锅具辅助装置。',
     problem: '针对腕力下降及倾倒锅具时的安全风险，设计可拆卸式电动辅助把手，在辅助用户的同时保留其自主控制。',
     contributions: ['结合用户研究定义竖直握持、腕部支撑、通用夹具、电动倾倒和三按键交互方案。', '基于不同锅具重量及夹持高度开展扭矩测试，完成电机选型、传动与可伸缩棘轮夹具设计。', '负责ESP32 Super Mini控制代码，使用PWM驱动H桥控制器，接入霍尔编码器并设置倾斜角度安全限位。', '完成三轮夹具及主体结构迭代、3D打印和不同负载下的转速、位置控制与夹持效果测试。'],
